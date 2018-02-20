@@ -1,0 +1,48 @@
+{
+    "basePath": "/v1",
+    "info": {
+        "title": "TMS",
+        "version": "0.1"
+    },
+    "paths": {
+        "/RBT": {
+            "get": {
+                "parameters": [
+                    {
+                        "default": "AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm",
+                        "in": "query",
+                        "name": "resource",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "suite",
+                        "in": "query",
+                        "name": "responder",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return response"
+                    }
+                },
+                "tags": [
+                    "UT"
+                ]
+            }
+        }
+    },
+    "swagger": "2.0",
+    "tags": [
+        {
+            "description": "Unit Test",
+            "name": "UT"
+        }
+    ]
+}

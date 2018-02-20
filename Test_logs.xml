@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<testResults>
+  <FitNesseVersion>v20111024</FitNesseVersion>
+  <rootPath>TestSuiteAfg4ApAlarm</rootPath>
+    <result>
+    <counts>
+      <right>1</right>
+      <wrong>0</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>845</runTimeInMillis>
+    <relativePageName>SuiteSetUp</relativePageName>
+    <pageHistoryLink>SuiteSetUp?pageHistory&amp;resultDate=20180216161715&amp;format=xml</pageHistoryLink>
+        
+  </result>
+    <result>
+    <counts>
+      <right>1</right>
+      <wrong>0</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>12</runTimeInMillis>
+    <relativePageName>SuiteSetUpAfgApGiba</relativePageName>
+    <pageHistoryLink>AfgApTestCases.SuiteSetUpAfgApGiba?pageHistory&amp;resultDate=20180216161716&amp;format=xml</pageHistoryLink>
+        
+  </result>
+    <result>
+    <counts>
+      <right>1</right>
+      <wrong>0</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>0</runTimeInMillis>
+    <relativePageName>SuiteTearDownAfgApGiba</relativePageName>
+    <pageHistoryLink>AfgApTestCases.SuiteTearDownAfgApGiba?pageHistory&amp;resultDate=20180216161716&amp;format=xml</pageHistoryLink>
+        
+  </result>
+    <result>
+    <counts>
+      <right>1</right>
+      <wrong>0</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>0</runTimeInMillis>
+    <relativePageName>SuiteTearDown</relativePageName>
+    <pageHistoryLink>SuiteTearDown?pageHistory&amp;resultDate=20180216161716&amp;format=xml</pageHistoryLink>
+        
+  </result>
+  
+  <finalCounts>
+    <right>4</right>
+    <wrong>0</wrong>
+    <ignores>0</ignores>
+    <exceptions>0</exceptions>
+  </finalCounts>
+  <totalRunTimeInMillis>1114</totalRunTimeInMillis>
+
+</testResults>
+

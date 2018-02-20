@@ -1,0 +1,84 @@
+swagger: '2.0'
+info:
+  title: TMS
+  version: "0.1"
+
+basePath: "/v1"
+
+tags:
+- name: "UT"
+  description: "Unit Test"
+
+
+paths:
+  /RBT:
+    get:
+      tags:
+      - "UT"
+      operationId: demo.get_it
+      parameters:
+        - name: resource
+          # in: query
+          in: query
+          required: true
+          # type: string
+          # default: 'john'
+          # schema:
+          type: string
+          default: 'AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm'
+            # properties:
+            #   name:
+            #     type: string
+            #     default: 'john'
+
+
+
+
+            # type: string
+            # # enum: [approved, pending, closed, new]
+            # # example: approved
+            # # properties:
+            #   # name:
+            #   #   # type: string
+            # example: 'dfsdfsd'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        - name: responder
+          in: query
+          required: true
+          # type: string
+          # default: 'john'
+          # schema:
+          type: string
+          default: 'suite'
+            # properties:
+            #   name:
+            #     type: string
+            #     default: 'john'
+
+
+      responses:
+        200:
+          description: Return response
+      produces:
+        - "application/xml"
+        - "application/json"
