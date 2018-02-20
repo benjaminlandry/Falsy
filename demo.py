@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 import pymongoConnect
 import collections
 import bson
-#import xmltodict
+import xmltodict
 #from xmljson import badgerfish as bf
 
 log = JLog().bind()
@@ -35,11 +35,19 @@ def get_it(resource, responder):
     #TODO: convert data to Bson, Json or Dict. Then input data into postToMongo(XXX)
 
 
-    #dataInJson = xmltodict.parse(data)
-    logs = pymongoConnect.postToMongo(data)
-   # testInfo = pymongoConnect.fetchFromMongo()
+    dataInJson = xmltodict.parse(data)
+    #print(dataInJson)
+    #pymongoConnect.postToMongo(dataInJson)
+    #testInfo = pymongoConnect.fetchFromMongo()
+    #print(testInfo)
 
+    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+    FT = client['FT'] # create a database
+    RBT = FT['RBT'] # create a collection
 
+    RBT.insert_one(dataInJson) # insert a log document 
+    x = RBT.find_one({"testResults": 1}) # fetch a document
+    print(x)
 
     ### mongo ##
     f = open('Test_logs.xml', 'w') # in string-format
