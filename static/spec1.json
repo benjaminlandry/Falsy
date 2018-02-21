@@ -33,6 +33,102 @@
                     }
                 },
                 "tags": [
+                    "FT"
+                ]
+            }
+        },
+        "/Rocket'": {
+            "get": {
+                "parameters": [
+                    {
+                        "default": "AfgAfg4MasterSmokeTestSuTestSuiteAfg4ApAlarm",
+                        "in": "query",
+                        "name": "resource",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "suite",
+                        "in": "query",
+                        "name": "responder",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return response"
+                    }
+                },
+                "tags": [
+                    "FT"
+                ]
+            }
+        },
+        "RBT": {
+            "get": {
+                "parameters": [
+                    {
+                        "default": "AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm",
+                        "in": "query",
+                        "name": "resource",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "suite",
+                        "in": "query",
+                        "name": "responder",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return response"
+                    }
+                },
+                "tags": [
+                    "UT"
+                ]
+            }
+        },
+        "Rocket": {
+            "get": {
+                "parameters": [
+                    {
+                        "default": "AfgAfg4MasterSmokeTestSuTestSuiteAfg4ApAlarm",
+                        "in": "query",
+                        "name": "resource",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "suite",
+                        "in": "query",
+                        "name": "responder",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return response"
+                    }
+                },
+                "tags": [
                     "UT"
                 ]
             }
@@ -43,6 +139,10 @@
         {
             "description": "Unit Test",
             "name": "UT"
+        },
+        {
+            "description": "Function Test",
+            "name": "FT"
         }
     ]
 }

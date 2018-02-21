@@ -6,75 +6,109 @@ info:
 basePath: "/v1"
 
 tags:
-- name: "UT"
-  description: "Unit Test"
+- name: UT
+  description: Unit Test
+- name: FT
+  description: Function Test
 
 
 paths:
-  /RBT:
+  'RBT':
     get:
-      tags:
-      - "UT"
+      tags: [UT]
       operationId: demo.get_it
       parameters:
         - name: resource
-          # in: query
           in: query
           required: true
-          # type: string
-          # default: 'john'
-          # schema:
           type: string
           default: 'AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm'
-            # properties:
-            #   name:
-            #     type: string
-            #     default: 'john'
-
-
-
-
-            # type: string
-            # # enum: [approved, pending, closed, new]
-            # # example: approved
-            # # properties:
-            #   # name:
-            #   #   # type: string
-            # example: 'dfsdfsd'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          
         - name: responder
           in: query
           required: true
-          # type: string
-          # default: 'john'
-          # schema:
+
           type: string
           default: 'suite'
-            # properties:
-            #   name:
-            #     type: string
-            #     default: 'john'
 
+      responses:
+        200:
+          description: Return response
+      produces:
+        - "application/xml"
+        - "application/json"
+
+  'Rocket':
+    get:
+      tags: [UT]
+      operationId: demo.get_it
+      parameters:
+        - name: resource
+          in: query
+          required: true
+          type: string
+          default: 'AfgAfg4MasterSmokeTestSuTestSuiteAfg4ApAlarm'
+          
+        - name: responder
+          in: query
+          required: true
+
+          type: string
+          default: 'suite'
+
+      responses:
+        200:
+          description: Return response
+      produces:
+        - "application/xml"
+        - "application/json"
+
+
+
+
+
+  /RBT:
+    get:
+      tags: [FT]
+      operationId: demo.get_it
+      parameters:
+        - name: resource
+          in: query
+          required: true
+          type: string
+          default: 'AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm'
+          
+        - name: responder
+          in: query
+          required: true
+
+          type: string
+          default: 'suite'
+
+      responses:
+        200:
+          description: Return response
+      produces:
+        - "application/xml"
+        - "application/json"
+
+  /Rocket':
+    get:
+      tags: [FT]
+      operationId: demo.get_it
+      parameters:
+        - name: resource
+          in: query
+          required: true
+          type: string
+          default: 'AfgAfg4MasterSmokeTestSuTestSuiteAfg4ApAlarm'
+          
+        - name: responder
+          in: query
+          required: true
+
+          type: string
+          default: 'suite'
 
       responses:
         200:
