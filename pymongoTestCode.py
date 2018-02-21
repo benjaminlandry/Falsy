@@ -54,60 +54,59 @@ testCases2 = {
 ## Function to post and fetch to mongo ##
 
 
-class pymongoTestCode():
-
-    def postTestsToMongo():
-        client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
-        FT = client['FT'] # create a database
-        RBT1 = FT['RBT'] # create a collection
-        UT = client['UT']
-        RBT2 = UT['RBT']
-
-        RBT1.insert_one(testSuite1) # insert a log document 
-        RBT1.insert_one(testCases1)
-
-        RBT2.insert_one(testSuite2) 
-        RBT2.insert_one(testCases2)
 
 
-    def fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestName):
-        client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
-        db = client[database] # create/connect to a database
-        col = db[collection]  # create/connect to a database
+def postTestsToMongo():
+    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+    FT = client['FT'] # create a database
+    RBT1 = FT['RBT'] # create a collection
+    UT = client['UT']
+    RBT2 = UT['RBT']
 
-        fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestSuiteName": TestName})
-        return fetchedResults
+    RBT1.insert_one(testSuite1) # insert a log document 
+    RBT1.insert_one(testCases1)
 
-    def fetchUrlFromMongo_Case(database, collection, Tag, ClassDefinition, TestName):
-        client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
-        db = client[database] # create/connect to a database
-        col = db[collection]  # create/connect to a database
-
-        fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestCaseName": TestName})
-        return fetchedResults    
-
-    def postTestLogsToMongo(database, collection, log):
-        client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
-        db = client[database] # create/connect to a database
-        col = db[collection]  # create/connect to a database
-
-        testLogs.insert_one(log)
+    RBT2.insert_one(testSuite2) 
+    RBT2.insert_one(testCases2)
 
 
-    ### main ###
+def fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestName):
+    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+    db = client[database] # create/connect to a database
+    col = db[collection]  # create/connect to a collection
 
-    #postTestsToMongo()
-    FT_RBT1_testSuite1 = fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
-    UT_RBT2_testSuite2 = fetchUrlFromMongo_Suite('UT', 'RBT', 'AFG', 'AfgVafgMasterSmokeTestSuites', 'TestSuiteVafgEnafGba')
-    FT_RBT1_testCase1 = fetchUrlFromMongo_Case('FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable')
-    UT_RBT2_testCase2 = fetchUrlFromMongo_Case('UT', 'RBT', 'AFG', 'AfgIotTestCases', 'TestCase0104FailureAfgIotEnafAuthGetReqBsfNotReachable')
+    fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestSuiteName": TestName})
+    return fetchedResults
 
-    # print(FT_RBT1_testSuite1['url'])
-    # print(UT_RBT2_testSuite2['url'])
-    # print(FT_RBT1_testCase1['url'])
-    # print(FT_RBT1_testCase1['description'])
-    # print(UT_RBT2_testCase2['url'])
-    # print(UT_RBT2_testCase2['description'])
+def fetchUrlFromMongo_Case(database, collection, Tag, ClassDefinition, TestName):
+    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+    db = client[database] # create/connect to a database
+    col = db[collection]  # create/connect to a collection
+
+    fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestCaseName": TestName})
+    return fetchedResults    
+
+def postTestLogsToMongo(database, collection, log):
+    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+    db = client[database] # create/connect to a database
+    col = db[collection]  # create/connect to a collection
+    col.insert_one(log)  # insert log document in a collection
+
+
+### main ###
+
+#postTestsToMongo()
+# FT_RBT1_testSuite1 = fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
+# UT_RBT2_testSuite2 = fetchUrlFromMongo_Suite('UT', 'RBT', 'AFG', 'AfgVafgMasterSmokeTestSuites', 'TestSuiteVafgEnafGba')
+# FT_RBT1_testCase1 = fetchUrlFromMongo_Case('FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable')
+# UT_RBT2_testCase2 = fetchUrlFromMongo_Case('UT', 'RBT', 'AFG', 'AfgIotTestCases', 'TestCase0104FailureAfgIotEnafAuthGetReqBsfNotReachable')
+
+# print(FT_RBT1_testSuite1['url'])
+# print(UT_RBT2_testSuite2['url'])
+# print(FT_RBT1_testCase1['url'])
+# print(FT_RBT1_testCase1['description'])
+# print(UT_RBT2_testCase2['url'])
+# print(UT_RBT2_testCase2['description'])
 
 
 

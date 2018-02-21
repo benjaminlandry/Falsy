@@ -28,25 +28,21 @@ log = JLog().bind()
 def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     log.debug('get it')    
 
-     ## new edits
+     ## mongo ##
     
     fetchedCase = pymongoTestCode.fetchUrlFromMongo_Case('FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable')
 
-
-    # database = 'FT'
-    # collection = 'RBT'
-    #fetchedResults = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, TestCaseName, TestCaseNumber)
-    print(fetchedSuite['url'])
+    database = 'FT'
+    collection = 'RBT'
+    #fetchedCase = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, TestCaseName, TestCaseNumber)
     print(fetchedCase['url'])
 
-
-    r = requests.get(fetchedResults['url'])
+    ## requests ##
+    r = requests.get(fetchedCase['url'])
     data = r.text
-
-    ## mongo ##
     dataInJson = xmltodict.parse(data)
     print(dataInJson)
-    logs = pymongoTestCode.postTestLogsToMongo(dataInJson)
+    logs = pymongoTestCode.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
     print(logs)
 
     ###
@@ -64,22 +60,21 @@ def get_it_TC(TestCaseName, TestCaseNumber, Tag):
 def get_it_TS(TestSuiteName, Tag):
     log.debug('get it')
 
-     ## new edits
+    ## mongo ##
+
     fetchedSuite = pymongoTestCode.fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
 
-
-    # database = 'FT'
-    # collection = 'RBT'
-    #fetchedResults = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, TestName)
+    database = 'FT'
+    collection = 'RBT'
+    #fetchedSuite = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, TestSuiteName)
     print(fetchedSuite['url'])
 
-    r = requests.get(fetchedResults['url'])
+    ## requests ##
+    r = requests.get(fetchedSuite['url'])
     data = r.text
-
-    ## mongo ##
     dataInJson = xmltodict.parse(data)
     print(dataInJson)
-    logs = pymongoTestCode.postTestLogsToMongo(dataInJson)
+    logs = pymongoTestCode.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
     print(logs)
 
     ###
