@@ -2,114 +2,221 @@ swagger: '2.0'
 info:
   title: TMS
   version: "0.1"
-
 basePath: "/v1"
-
 tags:
 - name: UT
   description: Unit Test
 - name: FT
   description: Function Test
-
-
+- name: SFT
+  description: Security Function Test 
+- name: ST
+  description: System test 
+- name: VA
+  description: Vulnerability Assessment 
+- name: QA
+  description: Quality Assurance
 paths:
-  'RBT':
+  /UT/RBT:
     get:
       tags: [UT]
-      operationId: demo.get_it
+      operationId: demo.get_it_TC
       parameters:
-        - name: resource
+        - name: TestCaseNumber
           in: query
           required: true
           type: string
-          default: 'AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm'
+          default: '0700'
           
-        - name: responder
+        - name: TestCaseName
           in: query
           required: true
-
           type: string
-          default: 'suite'
-
+          default: 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable'
+        - name: Tag
+          in: query
+          required: true
+          type: string
+          default: 'AFG'
       responses:
         200:
           description: Return response
       produces:
         - "application/xml"
         - "application/json"
-
-  'Rocket':
+  /UT/Rocket:
     get:
       tags: [UT]
-      operationId: demo.get_it
+      operationId: demo.get_it_TS
       parameters:
-        - name: resource
+        - name: TestSuiteName
+          in: query
+          required: true
+          type: string
+          default: 'TestSuiteVafgEnafGba'
+          
+        - name: Tag
+          in: query
+          required: true
+          type: string
+          default: 'AFG'
+      responses:
+        200:
+          description: Return response
+      produces:
+        - "application/xml"
+        - "application/json"
+  /FT/RBT:
+    get:
+      tags: [FT]
+      operationId: demo.get_it_TC
+      parameters:
+        - name: TestCaseNumber
+          in: query
+          required: true
+          type: string
+          default: 60
+          
+        - name: TestCaseName
+          in: query
+          required: true
+          type: string
+          default: 'AfgOfflineLicenseTestSuites'
+        - name: Tag
+          in: query
+          required: true
+          type: string
+          default: 'AFG'
+      responses:
+        200:
+          description: Return response
+      produces:
+        - "application/xml"
+        - "application/json"
+  /FT/Rocket:
+    get:
+      tags: [FT]
+      operationId: demo.get_it_TS
+      parameters:
+        - name: TestSuiteName
           in: query
           required: true
           type: string
           default: 'AfgAfg4MasterSmokeTestSuTestSuiteAfg4ApAlarm'
           
-        - name: responder
+        - name: Tag
           in: query
           required: true
-
           type: string
           default: 'suite'
-
       responses:
         200:
           description: Return response
       produces:
         - "application/xml"
         - "application/json"
-
-
-
-
-
-  /RBT:
+  /SFT/RBT:
     get:
-      tags: [FT]
-      operationId: demo.get_it
+      tags: [SFT]
+      operationId: demo.get_it_TC
       parameters:
-        - name: resource
+        - name: TestCaseNumber
           in: query
           required: true
           type: string
-          default: 'AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm'
+          default: 60
           
-        - name: responder
+        - name: TestCaseName
           in: query
           required: true
-
           type: string
-          default: 'suite'
-
+          default: 'AfgOfflineLicenseTestSuites'
+        - name: Tag
+          in: query
+          required: true
+          type: string
+          default: 'AFG'
       responses:
         200:
           description: Return response
       produces:
         - "application/xml"
         - "application/json"
-
-  /Rocket':
+  /ST/RBT:
     get:
-      tags: [FT]
-      operationId: demo.get_it
+      tags: [ST]
+      operationId: demo.get_it_TC
       parameters:
-        - name: resource
+        - name: TestCaseNumber
           in: query
           required: true
           type: string
-          default: 'AfgAfg4MasterSmokeTestSuTestSuiteAfg4ApAlarm'
+          default: 60
           
-        - name: responder
+        - name: TestCaseName
           in: query
           required: true
-
           type: string
-          default: 'suite'
-
+          default: 'AfgOfflineLicenseTestSuites'
+        - name: Tag
+          in: query
+          required: true
+          type: string
+          default: 'AFG'
+      responses:
+        200:
+          description: Return response
+      produces:
+        - "application/xml"
+        - "application/json"
+  /VA/RBT:
+    get:
+      tags: [VA]
+      operationId: demo.get_it_TC
+      parameters:
+        - name: TestCaseNumber
+          in: query
+          required: true
+          type: string
+          default: 60
+          
+        - name: TestCaseName
+          in: query
+          required: true
+          type: string
+          default: 'AfgOfflineLicenseTestSuites'
+        - name: Tag
+          in: query
+          required: true
+          type: string
+          default: 'AFG'
+      responses:
+        200:
+          description: Return response
+      produces:
+        - "application/xml"
+        - "application/json"
+  /QA/RBT:
+    get:
+      tags: [QA]
+      operationId: demo.get_it_TC
+      parameters:
+        - name: TestCaseNumber
+          in: query
+          required: true
+          type: string
+          default: 60
+          
+        - name: TestCaseName
+          in: query
+          required: true
+          type: string
+          default: 'AfgOfflineLicenseTestSuites'
+        - name: Tag
+          in: query
+          required: true
+          type: string
+          default: 'AFG'
       responses:
         200:
           description: Return response

@@ -40,52 +40,74 @@ testCases2 = {
 
 ## Mongo Initialization ##
 
-client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
 
-FT = client['FT'] # create a database
-RBT1 = FT['RBT'] # create a collection
-#Rocket1 = FT['Rocket']
 
-UT = client['UT']
-RBT2 = UT['RBT']
-#Rocket2 = UT['Rocket']
+# FT = client['FT'] # create a database
+# RBT1 = FT['RBT'] # create a collection
 
-logs = client['logs']
-testLogs = logs['TestLogs']
+# UT = client['UT']
+# RBT2 = UT['RBT']
 
+# logs = client['logs']
+# testLogs = logs['TestLogs']
 
 ## Function to post and fetch to mongo ##
 
-def postTestsToMongo():
-    RBT1.insert_one(testSuite1) # insert a log document 
-    RBT1.insert_one(testCases1)
 
-    RBT2.insert_one(testSuite2) 
-    RBT2.insert_one(testCases2)
+class pymongoTestCode():
+
+    def postTestsToMongo():
+        client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+        FT = client['FT'] # create a database
+        RBT1 = FT['RBT'] # create a collection
+        UT = client['UT']
+        RBT2 = UT['RBT']
+
+        RBT1.insert_one(testSuite1) # insert a log document 
+        RBT1.insert_one(testCases1)
+
+        RBT2.insert_one(testSuite2) 
+        RBT2.insert_one(testCases2)
 
 
-def fetchUrlFromMongo(collection, Tag, ClassDefinition, FunctionDefinition):
-    fetchedResults = collection.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "FunctionDefinition": FunctionDefinition})
-    return fetchedResults
+    def fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestName):
+        client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+        db = client[database] # create/connect to a database
+        col = db[collection]  # create/connect to a database
 
-def postTestLogsToMongo(log):
-    testLogs.insert_one(log)
+        fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestSuiteName": TestName})
+        return fetchedResults
+
+    def fetchUrlFromMongo_Case(database, collection, Tag, ClassDefinition, TestName):
+        client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+        db = client[database] # create/connect to a database
+        col = db[collection]  # create/connect to a database
+
+        fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestCaseName": TestName})
+        return fetchedResults    
+
+    def postTestLogsToMongo(database, collection, log):
+        client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+        db = client[database] # create/connect to a database
+        col = db[collection]  # create/connect to a database
+
+        testLogs.insert_one(log)
 
 
-### main ###
+    ### main ###
 
-postTestsToMongo()
-RBT1_testSuite1 = fetchUrlFromMongo(RBT1, 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
-RBT2_testSuite2 = fetchUrlFromMongo(RBT2, 'AFG', 'AfgVafgMasterSmokeTestSuites', 'TestSuiteVafgEnafGba')
-RBT1_testCase1 = fetchUrlFromMongo(RBT1, 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable')
-RBT2_testCase2 = fetchUrlFromMongo(RBT2, 'AFG', 'AfgIotTestCases', 'TestCase0104FailureAfgIotEnafAuthGetReqBsfNotReachable')
+    #postTestsToMongo()
+    FT_RBT1_testSuite1 = fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
+    UT_RBT2_testSuite2 = fetchUrlFromMongo_Suite('UT', 'RBT', 'AFG', 'AfgVafgMasterSmokeTestSuites', 'TestSuiteVafgEnafGba')
+    FT_RBT1_testCase1 = fetchUrlFromMongo_Case('FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable')
+    UT_RBT2_testCase2 = fetchUrlFromMongo_Case('UT', 'RBT', 'AFG', 'AfgIotTestCases', 'TestCase0104FailureAfgIotEnafAuthGetReqBsfNotReachable')
 
-print(RBT1_testSuite1['url'])
-print(RBT2_testSuite2['url'])
-print(RBT1_testCase1['url'])
-print(RBT1_testCase1['description'])
-print(RBT2_testCase2['url'])
-print(RBT2_testCase2['description'])
+    # print(FT_RBT1_testSuite1['url'])
+    # print(UT_RBT2_testSuite2['url'])
+    # print(FT_RBT1_testCase1['url'])
+    # print(FT_RBT1_testCase1['description'])
+    # print(UT_RBT2_testCase2['url'])
+    # print(UT_RBT2_testCase2['description'])
 
 
 

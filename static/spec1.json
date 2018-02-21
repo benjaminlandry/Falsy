@@ -5,20 +5,27 @@
         "version": "0.1"
     },
     "paths": {
-        "/RBT": {
+        "/FT/RBT": {
             "get": {
                 "parameters": [
                     {
-                        "default": "AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm",
+                        "default": 60,
                         "in": "query",
-                        "name": "resource",
+                        "name": "TestCaseNumber",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "default": "suite",
+                        "default": "AfgOfflineLicenseTestSuites",
                         "in": "query",
-                        "name": "responder",
+                        "name": "TestCaseName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AFG",
+                        "in": "query",
+                        "name": "Tag",
                         "required": true,
                         "type": "string"
                     }
@@ -37,20 +44,20 @@
                 ]
             }
         },
-        "/Rocket'": {
+        "/FT/Rocket": {
             "get": {
                 "parameters": [
                     {
                         "default": "AfgAfg4MasterSmokeTestSuTestSuiteAfg4ApAlarm",
                         "in": "query",
-                        "name": "resource",
+                        "name": "TestSuiteName",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "default": "suite",
                         "in": "query",
-                        "name": "responder",
+                        "name": "Tag",
                         "required": true,
                         "type": "string"
                     }
@@ -69,20 +76,144 @@
                 ]
             }
         },
-        "RBT": {
+        "/QA/RBT": {
             "get": {
                 "parameters": [
                     {
-                        "default": "AfgAfg4MasterSmokeTestSuites.TestSuiteAfg4ApAlarm",
+                        "default": 60,
                         "in": "query",
-                        "name": "resource",
+                        "name": "TestCaseNumber",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "default": "suite",
+                        "default": "AfgOfflineLicenseTestSuites",
                         "in": "query",
-                        "name": "responder",
+                        "name": "TestCaseName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AFG",
+                        "in": "query",
+                        "name": "Tag",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return response"
+                    }
+                },
+                "tags": [
+                    "QA"
+                ]
+            }
+        },
+        "/SFT/RBT": {
+            "get": {
+                "parameters": [
+                    {
+                        "default": 60,
+                        "in": "query",
+                        "name": "TestCaseNumber",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AfgOfflineLicenseTestSuites",
+                        "in": "query",
+                        "name": "TestCaseName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AFG",
+                        "in": "query",
+                        "name": "Tag",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return response"
+                    }
+                },
+                "tags": [
+                    "SFT"
+                ]
+            }
+        },
+        "/ST/RBT": {
+            "get": {
+                "parameters": [
+                    {
+                        "default": 60,
+                        "in": "query",
+                        "name": "TestCaseNumber",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AfgOfflineLicenseTestSuites",
+                        "in": "query",
+                        "name": "TestCaseName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AFG",
+                        "in": "query",
+                        "name": "Tag",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return response"
+                    }
+                },
+                "tags": [
+                    "ST"
+                ]
+            }
+        },
+        "/UT/RBT": {
+            "get": {
+                "parameters": [
+                    {
+                        "default": "0700",
+                        "in": "query",
+                        "name": "TestCaseNumber",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "TestCase0700SuccessAfgOpenIdConnectFeatureDisable",
+                        "in": "query",
+                        "name": "TestCaseName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AFG",
+                        "in": "query",
+                        "name": "Tag",
                         "required": true,
                         "type": "string"
                     }
@@ -101,20 +232,20 @@
                 ]
             }
         },
-        "Rocket": {
+        "/UT/Rocket": {
             "get": {
                 "parameters": [
                     {
-                        "default": "AfgAfg4MasterSmokeTestSuTestSuiteAfg4ApAlarm",
+                        "default": "TestSuiteVafgEnafGba",
                         "in": "query",
-                        "name": "resource",
+                        "name": "TestSuiteName",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "default": "suite",
+                        "default": "AFG",
                         "in": "query",
-                        "name": "responder",
+                        "name": "Tag",
                         "required": true,
                         "type": "string"
                     }
@@ -130,6 +261,45 @@
                 },
                 "tags": [
                     "UT"
+                ]
+            }
+        },
+        "/VA/RBT": {
+            "get": {
+                "parameters": [
+                    {
+                        "default": 60,
+                        "in": "query",
+                        "name": "TestCaseNumber",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AfgOfflineLicenseTestSuites",
+                        "in": "query",
+                        "name": "TestCaseName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "default": "AFG",
+                        "in": "query",
+                        "name": "Tag",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return response"
+                    }
+                },
+                "tags": [
+                    "VA"
                 ]
             }
         }
@@ -143,6 +313,22 @@
         {
             "description": "Function Test",
             "name": "FT"
+        },
+        {
+            "description": "Security Function Test",
+            "name": "SFT"
+        },
+        {
+            "description": "System test",
+            "name": "ST"
+        },
+        {
+            "description": "Vulnerability Assessment",
+            "name": "VA"
+        },
+        {
+            "description": "Quality Assurance",
+            "name": "QA"
         }
     ]
 }

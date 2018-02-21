@@ -22,18 +22,22 @@ import xmltodict
 import pymongoTestCode
 
 
-client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
-FT = client['FT'] # create ahh database
-RBT = FT['RBT'] # create a collection
-
-
 log = JLog().bind()
 
-def get_it(TestCaseName, TestCaseNumber, tag):
-    log.debug('get it')
-    fetchedResults = fetchUrlFromMongo(RBT1, 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
-    #fetchedResults = fetchUrlFromMongo(collection, Tag, ClassDefinition, FunctionDefinition)
-    print(fetchedResults["url"])
+
+def get_it_TC(TestCaseName, TestCaseNumber, Tag):
+    log.debug('get it')    
+
+     ## new edits
+    
+    fetchedCase = pymongoTestCode.fetchUrlFromMongo_Case('FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable')
+
+
+    # database = 'FT'
+    # collection = 'RBT'
+    #fetchedResults = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, TestCaseName, TestCaseNumber)
+    print(fetchedSuite['url'])
+    print(fetchedCase['url'])
 
 
     r = requests.get(fetchedResults['url'])
@@ -45,18 +49,50 @@ def get_it(TestCaseName, TestCaseNumber, tag):
     logs = pymongoTestCode.postTestLogsToMongo(dataInJson)
     print(logs)
 
-    
-    ##
-
-    f = open('Test_logs.xml', 'w') # in string-format
+    ###
+   
+    f = open('Test_logs.xml', 'w')
     f.write(data)
     f.close()
-
     infile = open("Test_logs.xml","r")
     contents = infile.read()
     soup = BeautifulSoup(contents,'xml')
     hi = soup.get_text()
     return hi
+
+
+def get_it_TS(TestSuiteName, Tag):
+    log.debug('get it')
+
+     ## new edits
+    fetchedSuite = pymongoTestCode.fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
+
+
+    # database = 'FT'
+    # collection = 'RBT'
+    #fetchedResults = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, TestName)
+    print(fetchedSuite['url'])
+
+    r = requests.get(fetchedResults['url'])
+    data = r.text
+
+    ## mongo ##
+    dataInJson = xmltodict.parse(data)
+    print(dataInJson)
+    logs = pymongoTestCode.postTestLogsToMongo(dataInJson)
+    print(logs)
+
+    ###
+
+    f = open('Test_logs.xml', 'w')
+    f.write(data)
+    f.close()
+    infile = open("Test_logs.xml","r")
+    contents = infile.read()
+    soup = BeautifulSoup(contents,'xml')
+    hi = soup.get_text()
+    return hi
+
 
 
 def post_it(name):
