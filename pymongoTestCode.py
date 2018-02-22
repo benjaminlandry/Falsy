@@ -78,12 +78,12 @@ def fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestName
     fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestSuiteName": TestName})
     return fetchedResults
 
-def fetchUrlFromMongo_Case(database, collection, Tag, ClassDefinition, TestName):
+def fetchUrlFromMongo_Case(database, collection, Tag, ClassDefinition, TestName, TestCaseNumber):
     client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
 
-    fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestCaseName": TestName})
+    fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestCaseName": TestName, "TestCaseNumber": TestCaseNumber})
     return fetchedResults    
 
 def postTestLogsToMongo(database, collection, log):

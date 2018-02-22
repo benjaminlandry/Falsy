@@ -30,11 +30,11 @@ def get_it_TC(TestCaseName, TestCaseNumber, Tag):
 
      ## mongo ##
     
-    fetchedCase = pymongoTestCode.fetchUrlFromMongo_Case('FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable')
+    fetchedCase = pymongoTestCode.fetchUrlFromMongo_Case('FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable', '0700')
 
     database = 'FT'
     collection = 'RBT'
-    #fetchedCase = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, TestCaseName, TestCaseNumber)
+    #fetchedCase = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestCaseName, TestCaseNumber)
     print(fetchedCase['url'])
 
     ## requests ##
@@ -42,8 +42,7 @@ def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     data = r.text
     dataInJson = xmltodict.parse(data)
     print(dataInJson)
-    logs = pymongoTestCode.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
-    print(logs)
+    pymongoTestCode.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
 
     ###
    
@@ -66,7 +65,7 @@ def get_it_TS(TestSuiteName, Tag):
 
     database = 'FT'
     collection = 'RBT'
-    #fetchedSuite = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, TestSuiteName)
+    #fetchedSuite = pymongoTestCode.fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestSuiteName)
     print(fetchedSuite['url'])
 
     ## requests ##
@@ -74,8 +73,7 @@ def get_it_TS(TestSuiteName, Tag):
     data = r.text
     dataInJson = xmltodict.parse(data)
     print(dataInJson)
-    logs = pymongoTestCode.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
-    print(logs)
+    pymongoTestCode.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
 
     ###
 
