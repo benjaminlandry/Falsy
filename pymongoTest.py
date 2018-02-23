@@ -3,6 +3,9 @@ import pymongo
 from pymongo import MongoClient
 import pprint
 
+import uuid
+from bson import ObjectId
+from uuid import UUID
 ## json-files ##
 
 testSuite1 = {  
@@ -92,6 +95,17 @@ def postTestLogsToMongo(database, collection, log):
     col = db[collection]  # create/connect to a collection
     col.insert_one(log)  # insert log document in a collection
 
+def fetchResultsFromOneLog(database, collection, uuid):
+    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+    db = client[database] # create/connect to a database
+    col = db[collection]  # create/connect to a collection
+
+    fetchedResults = col.find_one({"_id": uuid})
+    print(fetchedResults)
+    return fetchedResults 
+
+
+
 
 ### main ###
 
@@ -112,24 +126,13 @@ def postTestLogsToMongo(database, collection, log):
 
 
 ### --extra --###
-# print(b['url'] +'\n' + b['description'])
-# print(c['url'])
-# print(d['url'] +'\n' + d['description'])
+
 
 # Rocket1.insert_one(testSuite3) 
 # Rocket1.insert_one(testCases3)
 
 # Rocket2.insert_one(testSuite4) 
 # Rocket2.insert_one(testCases4)
-
-# a = RBT1.find_one({"tag": "AFG", "ClassDefinition": "AfgOfflineLicenseTestSuites", "FunctionDefinition": "TestCase0700SuccessAfgOpenIdConnectFeatureDisable"}) # find a document with specific fields
-# b = RBT1.find_one({"tag": "AFG", "ClassDefinition": "AfgOpenIdConnectTestCases", "FunctionDefinition": "TestCase0700SuccessAfgOpenIdConnectFeatureDisable"}) 
-# c = RBT2.find_one({"tag": "AFG", "ClassDefinition": "AfgVafgMasterSmokeTestSuites", "FunctionDefinition": "TestSuiteVafgEnafGba"})
-# d = RBT2.find_one({"tag": "AFG", "ClassDefinition": "AfgIotTestCases", "FunctionDefinition": "TestCase0104FailureAfgIotEnafAuthGetReqBsfNotReachable"})
-# # e = Rocket1.find_one({"tag": "AFG", "ClassDefinition": "AfgAfg3MasterSmokeTestSuites", "FunctionDefinition": "TestSuiteAfg3ApLicence"})
-# # f = Rocket1.find_one({"tag": "AFG", "ClassDefinition": "AfgApTestCases", "FunctionDefinition": "TestCase0701FailureAfgApAutGbaNoApLicenseAfg30"})
-# # g = Rocket2.find_one({"tag": "AFG", "ClassDefinition": "AfgAfg3MasterSmokeTestSuites", "FunctionDefinition": "TestSuiteAfg3BsfLicense"})
-# # h = Rocket2.find_one({"tag": "AFG", "ClassDefinition": "AfgBsfTestCases", "FunctionDefinition": "TestCase0300SuccessAfgBsfUc300GbaDigestFeatureDisable"})
 
 
 # testSuite3 = {  
