@@ -26,12 +26,68 @@ from uuid import UUID
 
 log = JLog().bind()
 
+#TS
 
 uuid = ObjectId("5a908064d5b67f3dd2e630ae")
 logData = pymongoTest.fetchResultsFromOneLog('logs', 'TestLogs', uuid)
-print(logData['testResults']['result'])
-print('\n')
-print(logData['testResults']['finalCounts'])
+
+#verdict
+totalResult_right = logData['testResults']['finalCounts']['right']
+totalResult_wrong = logData['testResults']['finalCounts']['wrong']
+
+if (totalResult_wrong == '0') and (totalResult_right >= 0):
+    totalResult = 'Success'
+else:
+    totalResult = 'Failure'
+print(totalResult)
+
+
+for x in logData['testResults']['result']:
+    #Test_case
+    Test_Case = (x['relativePageName'])
+    #Test_result
+    result_right = (x['counts']['right'])
+    result_wrong = (x['counts']['wrong'])
+
+    if (result_wrong == '0') and (result_right >= 0):
+        result = 'Success'
+    else:
+        result = 'Failure'
+    print(result)
+    #Time Evaluation
+    duration = (x['runTimeInMillis'])
+    print(duration)
+
+    #JSON-body
+    # response_data = if (uuid == uuid):
+        
+    
+    # original_Json = json.load(open('tcm_template.json'))
+
+    response_json = {}
+    children = []
+    children.append({
+        "uuid": str(uuid),
+        "name": str(tag + "_" + testName + "_" + datetime.datetime.utcnow()),
+        "verdict": str(totalResult)
+        }
+    for y in logData:
+        children.append({
+            "results": [
+            {
+                "Test_Case": str(Test_Case),
+                "Test_Result": str(result),
+                "Time Evaluation": str(duration)
+            }
+            ]
+        })
+    })
+
+
+    # print(json.dumps(resopnse_json, indent=2))
+
+
+
 
 
 def get_it_TC(TestCaseName, TestCaseNumber, Tag):

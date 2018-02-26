@@ -1,0 +1,48 @@
+{
+  "testcatalogmanager": {
+	"id": "ut_template_1",
+    "ut": {
+        
+        "versions": [
+          {
+            "name": "afg",
+			"description": "....",
+            "version": "R1A15"
+          }
+        ],
+        "tests": [
+        {
+            "uuid": "ebbad7ce-17ed-11e8-accf-0ed5f89f718b",
+			"type": "ts",
+            "name": "Test Feat 1",
+            "description": "....",
+			"target_tool": {"type": "Rocket", "IP_Address": "111.1111.1111", "port": "8888", "credentials": "username:password" },
+            "metadata": [
+                { 
+                "tags": ["afg", "tno"]
+                },
+                {
+                "Type": "ut"
+                },
+                {
+                "dependencies": []
+                }
+            ],
+            "data": [
+				{
+					"uuid": "ebbad7ce-17ed-11e8-accf-0ed5f89f718w",
+					"name": "afg_R1B15_timestamp",
+					"verdict": "Success",		
+					"results": [
+						
+					]	
+				}
+            ]
+        }
+        ]
+    }
+}
+}
+            
+		
+
