@@ -24,12 +24,15 @@ import uuid
 from bson import ObjectId
 from uuid import UUID
 
-
 log = JLog().bind()
 
-uuid = ObjectId("5a8ee5fdd5b67f1d6831c50a")
+
+uuid = ObjectId("5a908064d5b67f3dd2e630ae")
 logData = pymongoTest.fetchResultsFromOneLog('logs', 'TestLogs', uuid)
-print(logData)
+print(logData['testResults']['result'])
+print('\n')
+print(logData['testResults']['finalCounts'])
+
 
 def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     log.debug('get it')    
@@ -38,10 +41,10 @@ def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     
     fetchedCase = pymongoTest.fetchUrlFromMongo_Case('FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable', '0700')
 
-    database = 'FT'
-    collection = 'RBT'
-    #fetchedCase = pymongoTest.fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestCaseName, TestCaseNumber)
-    #print(fetchedCase['url'])
+    # database = 'FT'
+    # collection = 'RBT'
+    # fetchedCase = pymongoTest.fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestCaseName, TestCaseNumber)
+    # print(fetchedCase['url'])
 
     ## requests ##
     r = requests.get(fetchedCase['url'])
@@ -57,7 +60,7 @@ def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     
     #pymongoTest.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
     #print(str(uuid.uuid4()))
-    uuid = 'ObjectId("5a8ee5fdd5b67f1d6831c50a")'
+    uuid = ObjectId("5a8ee5fdd5b67f1d6831c50a")
     logData = pymongoTest.fetchResultsFromOneLog('logs', 'TestLogs', uuid)
     print(logData)
     ###

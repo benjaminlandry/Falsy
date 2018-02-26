@@ -28,7 +28,7 @@ testSuite2 = {
     "Tag": "AFG",   
     "ClassDefinition": "AfgVafgMasterSmokeTestSuites",
     "TestSuiteName": "TestSuiteVafgEnafGba",
-    "url": "http://142.133.174.149:8888/AfgVafgMasterSmokeTestSuites.TestSuiteVafgEnafGba"
+    "url": "http://142.133.174.149:8888/AfgVafgMasterSmokeTestSuites.TestSuiteVafgEnafGba?suite&format=xml"
 }
         
 testCases2 = {        
@@ -100,8 +100,8 @@ def fetchResultsFromOneLog(database, collection, uuid):
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
 
-    fetchedResults = col.find_one({"_id": uuid})
-    print(fetchedResults)
+    fetchedResults = col.find_one({"_id": uuid}, {"testResults.result.tables" : 0, "testResults.result.instructions": 0, "testResults.result.content": 0})
+    
     return fetchedResults 
 
 
