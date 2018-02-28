@@ -6,6 +6,7 @@ import pprint
 import uuid
 from bson import ObjectId
 from uuid import UUID
+import json
 ## json-files ##
 
 testSuite1 = {  
@@ -61,16 +62,20 @@ testCases2 = {
 
 def postTestsToMongo():
     client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
-    FT = client['FT'] # create a database
-    RBT1 = FT['RBT'] # create a collection
-    UT = client['UT']
-    RBT2 = UT['RBT']
+    # FT = client['FT'] # create a database
+    # RBT1 = FT['RBT'] # create a collection
+    # UT = client['UT']
+    # RBT2 = UT['RBT']
 
-    RBT1.insert_one(testSuite1) # insert a log document 
-    RBT1.insert_one(testCases1)
+    logs = client['logs']
+    TCM = logs['TestCatalogManager']
 
-    RBT2.insert_one(testSuite2) 
-    RBT2.insert_one(testCases2)
+    TCM.insert_one(json.load(open('tcm_template.json')))
+    # RBT1.insert_one(testSuite1) # insert a log document 
+    # RBT1.insert_one(testCases1)
+
+    # RBT2.insert_one(testSuite2) 
+    # RBT2.insert_one(testCases2)
 
 
 def fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestName):

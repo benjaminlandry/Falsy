@@ -9,7 +9,6 @@ import requests
 import json
 import xml.etree.ElementTree
 from json import dumps
-import uuid
 # from xmljson import badgerfish as bf
 # import xml.etree.ElementTree as ET
 import xml.etree.cElementTree as etree
@@ -24,12 +23,16 @@ import uuid
 from bson import ObjectId
 from uuid import UUID
 
+#logger
 log = JLog().bind()
 
 #TS
 
+#TODO: fetch actual UUID from mongo-live
 uuid = ObjectId("5a908064d5b67f3dd2e630ae")
+template_uuid = ObjectId("5a956fb1d5b67f11e0ded6e6")
 logData = pymongoTest.fetchResultsFromOneLog('logs', 'TestLogs', uuid)
+tcm_template = pymongoTest.fetchResultsFromOneLog('logs', 'TestCatalogManager', template_uuid)
 
 #verdict
 totalResult_right = logData['testResults']['finalCounts']['right']
@@ -39,7 +42,21 @@ if (totalResult_wrong == '0') and (totalResult_right >= 0):
     totalResult = 'Success'
 else:
     totalResult = 'Failure'
-print(totalResult)
+#print(totalResult)
+
+#TODO: append data to data in tcm_template
+data = {
+    "uuid": str(uuid),
+    #"name": str(tag + "_" + testName + "_" + datetime.datetime.utcnow()),
+    "verdict": str(totalResult)
+}
+print(data)
+
+res2 = tcm_template['testcatalogmanager']['ut']['tests']
+for res3 in res2:
+    res4 = res3['data']
+    for res5 in res4: # # res4 in data list     
+        print(res5['results'])
 
 
 for x in logData['testResults']['result']:
@@ -58,33 +75,26 @@ for x in logData['testResults']['result']:
     duration = (x['runTimeInMillis'])
     print(duration)
 
+
     #JSON-body
-    # response_data = if (uuid == uuid):
-        
+    # original_json = json.load(open('tcm_template.json'))
     
-    # original_Json = json.load(open('tcm_template.json'))
-
-    response_json = {}
-    children = []
-    children.append({
-        "uuid": str(uuid),
-        "name": str(tag + "_" + testName + "_" + datetime.datetime.utcnow()),
-        "verdict": str(totalResult)
-        }
-    for y in logData:
-        children.append({
-            "results": [
-            {
-                "Test_Case": str(Test_Case),
-                "Test_Result": str(result),
-                "Time Evaluation": str(duration)
-            }
-            ]
-        })
-    })
+    #TODO: add append for-loop
+    #TODO: update mongo-JSON with response_results
+    data_result = {
+        "Test_Case": str(Test_Case),
+        "Test_Result": str(result),
+        "Time Evaluation": str(duration)
+    }
+    # tcm_template['testcatalogmanager']['ut'][0]['data']['results'].append(data_result)
+    #print(original_json)
 
 
-    # print(json.dumps(resopnse_json, indent=2))
+#response_json = data + data_results + response_json    
+#print(json.dumps(response_json, indent=2))
+
+
+
 
 
 
