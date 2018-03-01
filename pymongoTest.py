@@ -106,10 +106,13 @@ def fetchResultsFromOneLog(database, collection, uuid):
     col = db[collection]  # create/connect to a collection
 
     fetchedResults = col.find_one({"_id": uuid}, {"testResults.result.tables" : 0, "testResults.result.instructions": 0, "testResults.result.content": 0})
-    
     return fetchedResults 
 
-
+def updateTCMTemplate(database, collection, uuid, log):
+    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+    db = client[database] # create/connect to a database
+    col = db[collection]  # create/connect to a collection
+    col.find_one_and_update({"_id": uuid}, {'$set': {'testcatalogmanager': {'ut': {'tests': [{'data': log}]}}}}) #TODO: FIX with Samy
 
 
 ### main ###

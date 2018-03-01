@@ -26,13 +26,17 @@ from uuid import UUID
 #logger
 log = JLog().bind()
 
+pymongoTest.postTestsToMongo()
+
 #TS
 
 #TODO: fetch actual UUID from mongo-live
 uuid = ObjectId("5a908064d5b67f3dd2e630ae")
-template_uuid = ObjectId("5a956fb1d5b67f11e0ded6e6")
+template_uuid = ObjectId("5a974aa7d5b67f3dea79edf1")
 logData = pymongoTest.fetchResultsFromOneLog('logs', 'TestLogs', uuid)
 tcm_template = pymongoTest.fetchResultsFromOneLog('logs', 'TestCatalogManager', template_uuid)
+tag = 'AFG'
+testName = 'R1A15'
 
 #verdict
 totalResult_right = logData['testResults']['finalCounts']['right']
@@ -42,21 +46,6 @@ if (totalResult_wrong == '0') and (totalResult_right >= 0):
     totalResult = 'Success'
 else:
     totalResult = 'Failure'
-#print(totalResult)
-
-#TODO: append data to data in tcm_template
-data = {
-    "uuid": str(uuid),
-    #"name": str(tag + "_" + testName + "_" + datetime.datetime.utcnow()),
-    "verdict": str(totalResult)
-}
-print(data)
-
-res2 = tcm_template['testcatalogmanager']['ut']['tests']
-for res3 in res2:
-    res4 = res3['data']
-    for res5 in res4: # # res4 in data list     
-        print(res5['results'])
 
 
 for x in logData['testResults']['result']:
@@ -77,7 +66,6 @@ for x in logData['testResults']['result']:
 
 
     #JSON-body
-    # original_json = json.load(open('tcm_template.json'))
     
     #TODO: add append for-loop
     #TODO: update mongo-JSON with response_results
@@ -86,15 +74,31 @@ for x in logData['testResults']['result']:
         "Test_Result": str(result),
         "Time Evaluation": str(duration)
     }
-    # tcm_template['testcatalogmanager']['ut'][0]['data']['results'].append(data_result)
-    #print(original_json)
+    #print(data_result)
+
+    res2 = tcm_template['testcatalogmanager']['ut']['tests']
+    for res3 in res2:
+        res4 = res3['data']
+        for res5 in res4: # # res4 in data list     
+            final_result = res5['results']
+            final_result.append(data_result)
 
 
-#response_json = data + data_results + response_json    
-#print(json.dumps(response_json, indent=2))
+for tcm2 in tcm_template['testcatalogmanager']['ut']['tests']:
+    #tcm2['data'].append(data)
+    for tcm3 in tcm2:
+        tcm3 = final_result
+#print(tcm_template)     
 
+data = [{
+    "uuid": str(uuid),
+    "name": str(tag + "_" + testName + "_" + str(datetime.datetime.utcnow())),
+    "verdict": str(totalResult),
+    "result": tcm3
+}]
+print(data)
 
-
+pymongoTest.updateTCMTemplate('logs', 'TestCatalogManager', template_uuid, data)
 
 
 
