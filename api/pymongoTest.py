@@ -1,7 +1,6 @@
 import datetime
 import pymongo
 from pymongo import MongoClient
-import pprint
 
 import uuid
 from bson import ObjectId
