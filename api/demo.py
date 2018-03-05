@@ -16,21 +16,27 @@ import xmltodict
 import pymongoTest 
 import uuid
 from uuid import UUID
+from bson import ObjectId
 
 
-# pymongoTest.postTestsToMongo()
+pymongoTest.postTestsToMongo()
 
-# #TS
+#TS
 
-# #TODO: fetch actual UUID from mongo-live
-# uuid = ObjectId("5a908064d5b67f3dd2e630ae")
-# template_uuid = ObjectId("5a974aa7d5b67f3dea79edf1")
-# logData = pymongoTest.fetchResultsFromOneLog('logs', 'TestLogs', uuid)
-# tcm_template = pymongoTest.fetchResultsFromOneLog('logs', 'TestCatalogManager', template_uuid)
-# tag = 'AFG'
-# testName = 'R1A15'
+#TODO: fetch actual UUID from mongo-live
+#uuid = ObjectId("5a908064d5b67f3dd2e630ae")
 
-# #verdict
+template_uuid = pymongoTest.fetchUUID('logs', 'TestCatalogManager')
+print(template_uuid)
+
+#template_uuid = ObjectId("5a9d6815d5b67f179d29b8ab")
+#logData = pymongoTest.fetchResultsFromOneLog('logs', 'TestLogs', uuid)
+tcm_template = pymongoTest.fetchResultsFromOneLog('logs', 'TestCatalogManager', template_uuid)
+
+tag = 'AFG'
+testName = 'R1A15'
+
+#verdict
 # totalResult_right = logData['testResults']['finalCounts']['right']
 # totalResult_wrong = logData['testResults']['finalCounts']['wrong']
 
@@ -56,41 +62,52 @@ from uuid import UUID
 #     duration = (x['runTimeInMillis'])
 #     print(duration)
 
+duration = 123
+Test_Case = "abc"
+result = "Success"
+totalResult = "success"
 
-#     #JSON-body
-    
-#     #TODO: add append for-loop
-#     #TODO: update mongo-JSON with response_results
-#     data_result = {
-#         "Test_Case": str(Test_Case),
-#         "Test_Result": str(result),
-#         "Time Evaluation": str(duration)
-#     }
-#     #print(data_result)
+#JSON-body
 
-#     res2 = tcm_template['testcatalogmanager']['ut']['tests']
-#     for res3 in res2:
-#         res4 = res3['data']
-#         for res5 in res4: # # res4 in data list     
-#             final_result = res5['results']
-#             final_result.append(data_result)
+#TODO: add append for-loop
+#TODO: update mongo-JSON with response_results
+data_result = {
+    "Test_Case": str(Test_Case),
+    "Test_Result": str(result),
+    "Time Evaluation": str(duration)
+}
+    #print(data_result)
+
+res2 = tcm_template['testcatalogmanager']['ut']['tests']
+for res3 in res2:
+    res4 = res3['data']
+    for res5 in res4: # # res4 in data list     
+        final_result = res5['results']
+        final_result.append(data_result)
 
 
-# for tcm2 in tcm_template['testcatalogmanager']['ut']['tests']:
-#     #tcm2['data'].append(data)
-#     for tcm3 in tcm2:
-#         tcm3 = final_result
-# #print(tcm_template)     
+for tcm2 in tcm_template['testcatalogmanager']['ut']['tests']:
+    #tcm2['data'].append(data)
+    for tcm3 in tcm2:
+        tcm3 = final_result
+#print(tcm_template)     
 
-# data = [{
-#     "uuid": str(uuid),
-#     "name": str(tag + "_" + testName + "_" + str(datetime.datetime.utcnow())),
-#     "verdict": str(totalResult),
-#     "result": tcm3
-# }]
-# print(data)
+data = [{
+    "uuid": str(uuid),
+    "name": str(tag + "_" + testName + "_" + str(datetime.datetime.utcnow())),
+    "verdict": str(totalResult),
+    "result": tcm3
+}]
+#print(data)
 
-# pymongoTest.updateTCMTemplate('logs', 'TestCatalogManager', template_uuid, data)
+
+for tcm2b in tcm_template['testcatalogmanager']['ut']['tests']:
+    tcm2b['data'] = data
+    print(tcm_template)
+# for tcm3b in tcm_template
+#     tcm3b['testcatalogmanager'] = tcm3b['testcatalogmanager']['ut']
+
+# pymongoTest.updateTCMTemplate('logs', 'TestCatalogManager', template_uuid, tcm_template)
 
 
 

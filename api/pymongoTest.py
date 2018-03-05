@@ -6,6 +6,7 @@ import uuid
 from bson import ObjectId
 from uuid import UUID
 import json
+import os
 ## json-files ##
 
 testSuite1 = {  
@@ -111,10 +112,27 @@ def updateTCMTemplate(database, collection, uuid, log):
     client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
-    col.find_one_and_update({"_id": uuid}, {'$set': {'testcatalogmanager': {'ut': {'tests': [{'data': log}]}}}}) #TODO: FIX with Samy
+   # col.find_one_and_update({"_id": uuid}, {'$set': {'testcatalogmanager': {'ut': {'tests': [{'data': log}]}}}}) 
+    col.find_one_and_replace({"_id": uuid}, {'testcatalogmanager': log}) #TODO: fix later, duplicate 'testcatalogmanager' name in JSON
+
+def fetchUUID(database, collection, tag, testCatalog, target_tool, testType, testName, uuid):
+    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+    db = client[database] # create/connect to a database
+    col = db[collection]  # create/connect to a collection
+    
+    logDirectory = col.find_one({"testcatalogmanager.ut.tests.target_tool.type": target_tool})
+    #logDirectory = col.find({['testcatalogmanager']['ut']['tests']['target_tool']['type']: target_tool})
+
+    print(logDirectory)
+    #TODO: grab UT, RBT, and name parameters to pick an '_id'
+    
+    # return i['_id']
 
 
 ### main ###
+#template_uuid = fetchDocWithUUID('ebbad7ce-17ed-11e8-accf-0ed5f89f718a')
+template_uuid = fetchUUID('logs', 'TestCatalogManager', 'AFG', 'ut', 'Rocket', 'ts', 'AfgOfflineLicenseTestSuites.TestSuiteAfgOpenIdOfflineLicense', 'ebbad7ce-17ed-11e8-accf-0ed5f89f718a')
+#print(template_uuid)
 
 #postTestsToMongo()
 # FT_RBT1_testSuite1 = fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
@@ -142,34 +160,3 @@ def updateTCMTemplate(database, collection, uuid, log):
 # Rocket2.insert_one(testCases4)
 
 
-# testSuite3 = {  
-#     "tag": "AFG",   
-#     "ClassDefinition": "AfgAfg3MasterSmokeTestSuites",
-#     "FunctionDefiniton": "TestSuiteAfg3ApLicence",
-#     "url": "http://142.133.174.149:8888/AfgAfg3MasterSmokeTestSuites.TestSuiteAfg3ApLicence?suite&format=xml"
-# }
-        
-# testCases3 = {        
-#     "tag": "AFG",
-#     "testCaseNumber": "0701",
-#     "ClassDefinition": "AfgApTestCases",
-#     "FunctionDefinition": "TestCase0701FailureAfgApAutGbaNoApLicenseAfg30",
-#     "url": "http://142.133.174.149:8888/AfgApTestCases.TestCase0701FailureAfgApAutGbaNoApLicenseAfg30?test&format=xml",
-#     "description": "Verify that the AP and NAF cannot perform GBA authentication without any license."
-# }  
-
-# testSuite4 = {  
-#     "tag": "AFG",   
-#     "ClassDefinition": "AfgAfg3MasterSmokeTestSuites",
-#     "FunctionDefiniton": "TestSuiteAfg3BsfLicense",
-#     "url": "http://142.133.174.149:8888/AfgAfg3MasterSmokeTestSuites.TestSuiteAfg3BsfLicense?suite&format=xml"
-# }
-        
-# testCases4 = {        
-#     "tag": "AFG",
-#     "testCaseNumber": "0300",
-#     "ClassDefinition": "AfgBsfTestCases",
-#     "FunctionDefinition": "TestCase0300SuccessAfgBsfUc300GbaDigestFeatureDisable",
-#     "url": "http://142.133.174.149:8888/AfgBsfTestCases.TestCase0300SuccessAfgBsfUc300GbaDigestFeatureDisable?test&format=xml",
-#     "description": "This test case sets the GBA DIgest feature flag to disable.The expected behavior is that BSF rejects. GBA Digest requires this info to work. Note: The OpenId[?] license allows GBA traffic, so it must be disabled too."
-# }     

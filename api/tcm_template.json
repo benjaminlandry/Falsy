@@ -14,9 +14,10 @@
         {
             "uuid": "ebbad7ce-17ed-11e8-accf-0ed5f89f718b",
 			"type": "ts",
-            "name": "Test Feat 1",
+            "name": "AfgOfflineLicenseTestSuites.TestSuiteAfgOpenIdOfflineLicense",
             "description": "....",
-			"target_tool": {"type": "Rocket", "IP_Address": "111.1111.1111", "port": "8888", "credentials": "username:password" },
+            "target_tool": {"type": "Rocket", "IP_Address": "111.1111.1111", "port": "8888", "credentials": "username:password" },
+            "url": "http://142.133.174.149:8888/AfgOpenIdConnectTestCases.TestCase0700SuccessAfgOpenIdConnectFeatureDisable?test&format=xml",
             "metadata": [
                 { 
                 "tags": ["afg", "tno"]
