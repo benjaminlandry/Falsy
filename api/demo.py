@@ -24,14 +24,15 @@ pymongoTest.postTestsToMongo()
 #TS
 
 #uuid = ObjectId("5a908064d5b67f3dd2e630ae")
-template_uuid = 'ebbad7ce-17ed-11e8-accf-0ed5f89f718b' #variable given in swagger-user-body
+
+template_uuid = 'ebbad7ce-17ed-11e8-accf-0ed5f89f718bbb' #variable given in swagger-user-body
 tcm_template = pymongoTest.fetchDocWithUUID('logs', 'TestCatalogManager', 'Rocket', template_uuid)
 #print(tcm_template)
 
 tag = 'AFG'
 testName = 'R1A15'
 
-#verdict
+#verdict- logic for convertion
 # totalResult_right = logData['testResults']['finalCounts']['right']
 # totalResult_wrong = logData['testResults']['finalCounts']['wrong']
 
@@ -57,10 +58,12 @@ testName = 'R1A15'
 #     duration = (x['runTimeInMillis'])
 #     print(duration)
 
+#TODO: TODELETE - testParameters
 duration = 123
 Test_Case = "abc"
 result = "Success"
 totalResult = "success"
+##
 
 #JSON-body
 
@@ -90,20 +93,13 @@ data = [{
     "verdict": str(totalResult),
     "result": tcm3
 }]
-#print(data_result)
-#print(tcm_template)    
-#print(data) 
-
 
 for tcm2b in tcm_template['testcatalogmanager']['ut']['tests']:
     tcm2b['data'] = data
-    #print(tcm_template)
 
-# tcm_template['testcatalogmanager'] = tcm_template['testcatalogmanager']['ut'] 
 print(tcm_template['testcatalogmanager'])
-#print(tcm_template['testcatalogmanager']['ut'])
 
-pymongoTest.updateTCMTemplate('logs', 'TestCatalogManager', template_uuid, tcm_template)
+pymongoTest.updateTCMTemplate('logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
 
 
 
@@ -129,6 +125,7 @@ def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     #print(dataInJson)
     ## append data
     
+
 
     ## logs
     
@@ -161,24 +158,56 @@ def get_it_TS(TestSuiteName, Tag):
     #fetchedSuite = pymongoTest.fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinitionTestSuiteName)
     print(fetchedSuite['url'])
 
-    ## requests ##
+    ## requests to testServer
     r = requests.get(fetchedSuite['url'])
     data = r.text
     dataInJson = xmltodict.parse(data)
     print(dataInJson)
     pymongoTest.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
+    ##
 
     ###
 
-    f = open('Test_logs.xml', 'w')
-    f.write(data)
-    f.close()
-    infile = open("Test_logs.xml","r")
-    contents = infile.read()
-    soup = BeautifulSoup(contents,'xml')
-    hi = soup.get_text()
-    return hi
 
+
+    ##updating mongo document for logResults
+    data_result = {
+        "Test_Case": str(Test_Case),
+        "Test_Result": str(result),
+        "Time Evaluation": str(duration)
+    }
+    
+
+    res2 = tcm_template['testcatalogmanager']['ut']['tests']
+    for res3 in res2:
+        res4 = res3['data']
+        for res5 in res4: # # res4 in data list     
+            final_result = res5['results']
+            final_result.append(data_result)
+
+
+    for tcm2 in tcm_template['testcatalogmanager']['ut']['tests']:
+        for tcm3 in tcm2:
+            tcm3 = final_result
+
+
+    data = [{
+        "uuid": str(uuid),
+        "name": str(tag + "_" + testName + "_" + str(datetime.datetime.utcnow())),
+        "verdict": str(totalResult),
+        "result": tcm3
+    }]
+
+    for tcm2b in tcm_template['testcatalogmanager']['ut']['tests']:
+        tcm2b['data'] = data
+
+    pymongoTest.updateTCMTemplate('logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
+    ##
+
+    #return results to swagger
+    swagger_results = pymongoTest.fetchDocWithUUID('logs', 'TestCatalogManager', 'Rocket', template_uuid)
+    return swagger_results
+    ###
 
 
 def post_it(name):

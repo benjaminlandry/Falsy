@@ -98,6 +98,7 @@ def postTestLogsToMongo(database, collection, log):
     client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
+    
     col.insert_one(log)  # insert log document in a collection
 
 def fetchResultsFromOneLog(database, collection, uuid):
@@ -112,7 +113,7 @@ def updateTCMTemplate(database, collection, uuid, log):
     client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
-   # col.find_one_and_update({"_id": uuid}, {'$set': {'testcatalogmanager': {'ut': {'tests': [{'data': log}]}}}}) 
+
     col.find_one_and_replace({'testcatalogmanager.ut.tests.uuid': uuid}, {'testcatalogmanager': log}) #TODO: fix later, duplicate 'testcatalogmanager' name in JSON
 
 def fetchDocWithUUID(database, collection, target_tool, uuid):

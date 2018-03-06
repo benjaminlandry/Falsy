@@ -12,7 +12,7 @@
         ],
         "tests": [
         {
-            "uuid": "ebbad7ce-17ed-11e8-accf-0ed5f89f718b",
+            "uuid": "ebbad7ce-17ed-11e8-accf-0ed5f89f718bbb",
 			"type": "ts",
             "name": "AfgOfflineLicenseTestSuites.TestSuiteAfgOpenIdOfflineLicense",
             "description": "....",
