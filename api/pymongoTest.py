@@ -113,26 +113,23 @@ def updateTCMTemplate(database, collection, uuid, log):
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
    # col.find_one_and_update({"_id": uuid}, {'$set': {'testcatalogmanager': {'ut': {'tests': [{'data': log}]}}}}) 
-    col.find_one_and_replace({"_id": uuid}, {'testcatalogmanager': log}) #TODO: fix later, duplicate 'testcatalogmanager' name in JSON
+    col.find_one_and_replace({'testcatalogmanager.ut.tests.uuid': uuid}, {'testcatalogmanager': log}) #TODO: fix later, duplicate 'testcatalogmanager' name in JSON
 
-def fetchUUID(database, collection, tag, testCatalog, target_tool, testType, testName, uuid):
+def fetchDocWithUUID(database, collection, target_tool, uuid):
     client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
     
-    logDirectory = col.find_one({"testcatalogmanager.ut.tests.target_tool.type": target_tool})
-    #logDirectory = col.find({['testcatalogmanager']['ut']['tests']['target_tool']['type']: target_tool})
-
-    print(logDirectory)
-    #TODO: grab UT, RBT, and name parameters to pick an '_id'
-    
-    # return i['_id']
+    logDirectory = col.find_one({"testcatalogmanager.ut.tests.target_tool.type": target_tool, 'testcatalogmanager.ut.tests.uuid': uuid})
+    return logDirectory
 
 
 ### main ###
-#template_uuid = fetchDocWithUUID('ebbad7ce-17ed-11e8-accf-0ed5f89f718a')
-template_uuid = fetchUUID('logs', 'TestCatalogManager', 'AFG', 'ut', 'Rocket', 'ts', 'AfgOfflineLicenseTestSuites.TestSuiteAfgOpenIdOfflineLicense', 'ebbad7ce-17ed-11e8-accf-0ed5f89f718a')
-#print(template_uuid)
+# template_uuid = fetchDocWithUUID('logs', 'TestCatalogManager', 'Rocket', 'ebbad7ce-17ed-11e8-accf-0ed5f89f718a')
+# print(template_uuid)
+
+#template_uuid = fetchUUID('logs', 'TestCatalogManager', 'AFG', 'ut', 'Rocket', 'ts', 'AfgOfflineLicenseTestSuites.TestSuiteAfgOpenIdOfflineLicense', 'ebbad7ce-17ed-11e8-accf-0ed5f89f718a')
+
 
 #postTestsToMongo()
 # FT_RBT1_testSuite1 = fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')

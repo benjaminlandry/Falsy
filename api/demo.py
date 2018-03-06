@@ -23,15 +23,10 @@ pymongoTest.postTestsToMongo()
 
 #TS
 
-#TODO: fetch actual UUID from mongo-live
 #uuid = ObjectId("5a908064d5b67f3dd2e630ae")
-
-template_uuid = pymongoTest.fetchUUID('logs', 'TestCatalogManager')
-print(template_uuid)
-
-#template_uuid = ObjectId("5a9d6815d5b67f179d29b8ab")
-#logData = pymongoTest.fetchResultsFromOneLog('logs', 'TestLogs', uuid)
-tcm_template = pymongoTest.fetchResultsFromOneLog('logs', 'TestCatalogManager', template_uuid)
+template_uuid = 'ebbad7ce-17ed-11e8-accf-0ed5f89f718b' #variable given in swagger-user-body
+tcm_template = pymongoTest.fetchDocWithUUID('logs', 'TestCatalogManager', 'Rocket', template_uuid)
+#print(tcm_template)
 
 tag = 'AFG'
 testName = 'R1A15'
@@ -69,14 +64,12 @@ totalResult = "success"
 
 #JSON-body
 
-#TODO: add append for-loop
-#TODO: update mongo-JSON with response_results
 data_result = {
     "Test_Case": str(Test_Case),
     "Test_Result": str(result),
     "Time Evaluation": str(duration)
 }
-    #print(data_result)
+   
 
 res2 = tcm_template['testcatalogmanager']['ut']['tests']
 for res3 in res2:
@@ -87,10 +80,9 @@ for res3 in res2:
 
 
 for tcm2 in tcm_template['testcatalogmanager']['ut']['tests']:
-    #tcm2['data'].append(data)
     for tcm3 in tcm2:
         tcm3 = final_result
-#print(tcm_template)     
+
 
 data = [{
     "uuid": str(uuid),
@@ -98,16 +90,20 @@ data = [{
     "verdict": str(totalResult),
     "result": tcm3
 }]
-#print(data)
+#print(data_result)
+#print(tcm_template)    
+#print(data) 
 
 
 for tcm2b in tcm_template['testcatalogmanager']['ut']['tests']:
     tcm2b['data'] = data
-    print(tcm_template)
-# for tcm3b in tcm_template
-#     tcm3b['testcatalogmanager'] = tcm3b['testcatalogmanager']['ut']
+    #print(tcm_template)
 
-# pymongoTest.updateTCMTemplate('logs', 'TestCatalogManager', template_uuid, tcm_template)
+# tcm_template['testcatalogmanager'] = tcm_template['testcatalogmanager']['ut'] 
+print(tcm_template['testcatalogmanager'])
+#print(tcm_template['testcatalogmanager']['ut'])
+
+pymongoTest.updateTCMTemplate('logs', 'TestCatalogManager', template_uuid, tcm_template)
 
 
 

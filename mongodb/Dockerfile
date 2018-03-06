@@ -13,6 +13,8 @@ ENV TCM_DB_host = 0.0.0.0
 
 EXPOSE 27017
 
-
-#CMD ["script.sh"]
 #https://hub.docker.com/_/mongo/
+
+#Running Dockerfile and Image
+#docker build -t mongo1
+#docker run --name=mongo1 mongo1

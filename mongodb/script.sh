@@ -1,6 +1,6 @@
 #setting arguments
-set mongo1 
-arg1=$1
+# set mongo1 
+# arg1=$1
 
 #docker build -t mongo3
 #docker run --name mongo3 -d mongo
