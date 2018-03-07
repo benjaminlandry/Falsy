@@ -1,2 +1,3 @@
 #!/bin/sh
-gunicorn -b 0.0.0.0:8089 main:api --reload -w 1 --threads 1
+ip=`awk 'END{print $1}' /etc/hosts`
+gunicorn -b $ip:8090 main:api --reload -w 1 --threads 1

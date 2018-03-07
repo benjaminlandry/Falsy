@@ -32,7 +32,7 @@ tcm_template = pymongoTest.fetchDocWithUUID('logs', 'TestCatalogManager', 'Rocke
 tag = 'AFG'
 testName = 'R1A15'
 
-#verdict- logic for convertion
+## logic for parsing logs
 # totalResult_right = logData['testResults']['finalCounts']['right']
 # totalResult_wrong = logData['testResults']['finalCounts']['wrong']
 
@@ -149,28 +149,56 @@ def get_it_TC(TestCaseName, TestCaseNumber, Tag):
 
 def get_it_TS(TestSuiteName, Tag):
 
-    ## mongo ##
-
+    
+    ## fetch test_url from TMS_template, in mongo
     fetchedSuite = pymongoTest.fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
 
     database = 'FT'
     collection = 'RBT'
     #fetchedSuite = pymongoTest.fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinitionTestSuiteName)
     print(fetchedSuite['url'])
+    ##
 
     ## requests to testServer
     r = requests.get(fetchedSuite['url'])
     data = r.text
     dataInJson = xmltodict.parse(data)
     print(dataInJson)
-    pymongoTest.postTestLogsToMongo('logs', 'TestLogs', dataInJson)
+    # post logs to mongo
+    pymongoTest.postTestLogsToMongo('logs', 'TestLogs', dataInJson) 
     ##
 
     ###
 
 
+    ## logic for parsing logs
+    # totalResult_right = logData['testResults']['finalCounts']['right']
+    # totalResult_wrong = logData['testResults']['finalCounts']['wrong']
 
-    ##updating mongo document for logResults
+    # if (totalResult_wrong == '0') and (totalResult_right >= 0):
+    #     totalResult = 'Success'
+    # else:
+    #     totalResult = 'Failure'
+
+
+    # for x in logData['testResults']['result']:
+    #     #Test_case
+    #     Test_Case = (x['relativePageName'])
+    #     #Test_result
+    #     result_right = (x['counts']['right'])
+    #     result_wrong = (x['counts']['wrong'])
+
+    #     if (result_wrong == '0') and (result_right >= 0):
+    #         result = 'Success'
+    #     else:
+    #         result = 'Failure'
+    #     print(result)
+    #     #Time Evaluation
+    #     duration = (x['runTimeInMillis'])
+    #     print(duration)
+    ##
+
+    ## updating mongo document for logResults
     data_result = {
         "Test_Case": str(Test_Case),
         "Test_Result": str(result),
