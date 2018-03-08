@@ -19,17 +19,17 @@ from uuid import UUID
 from bson import ObjectId
 import os
 
-# ## to set mongoIP
-# mongoIP = os.environ.get('ip')
-# print(mongoIP)
-# ##
+## to set mongoIP
+mongoIP = os.environ.get('MONGOIP')
+print(mongoIP)
+##
 
 
-# def get_it_TC(TestCaseName, TestCaseNumber, Tag):
-#     pass
-# def get_it_TS(TestSuiteName, Tag):
-#     pass
-# # ^^ new ^^ #
+def get_it_TC(TestCaseName, TestCaseNumber, Tag):
+    pass
+def get_it_TS(TestSuiteName, Tag):
+    pass
+# ^^ new ^^ #
 
 
 # pymongoTest.postTestsToMongo('172.17.0.2')
@@ -160,109 +160,109 @@ import os
 #     return logData
 
 
-def get_it_TS(TestSuiteName, Tag, uuid):
+# def get_it_TS(TestSuiteName, Tag, uuid):
     
-    ## fetch test_url from TMS_template, in mongo
-    tcm_template = pymongoTest.fetchDocWithUUID('172.17.0.2', 'logs', 'TestLogs', "ebbad7ce-17ed-11e8-accf-0ed5f89f718b") 
-    # database = 'logs'
-    # collection = 'TestLogs'
-    #fetchedSuite = pymongoTest.fetchUrlFromMongo_Suite('172.17.0.2', database, collection, Tag, ClassDefinitionTestSuiteName)
-    res2 = (tcm_template['testcatalogmanager']['ut']['tests'])
-    for res3 in res2:
-        test_url = res3['url'] # check syntax
-    ##
+#     ## fetch test_url from TMS_template, in mongo
+#     tcm_template = pymongoTest.fetchDocWithUUID('172.17.0.2', 'logs', 'TestLogs', "ebbad7ce-17ed-11e8-accf-0ed5f89f718b") 
+#     # database = 'logs'
+#     # collection = 'TestLogs'
+#     #fetchedSuite = pymongoTest.fetchUrlFromMongo_Suite('172.17.0.2', database, collection, Tag, ClassDefinitionTestSuiteName)
+#     res2 = (tcm_template['testcatalogmanager']['ut']['tests'])
+#     for res3 in res2:
+#         test_url = res3['url'] # check syntax
+#     ##
 
-    ## requests to testServer
-    r = requests.get(fetchedSuite['url'])
-    data = r.text
-    dataInJson = xmltodict.parse(data)
-    print(dataInJson)
-    # post logs to mongo
-    pymongoTest.postTestLogsToMongo('172.17.0.2', 'logs', 'TestLogs', dataInJson) 
-    ##
+#     ## requests to testServer
+#     r = requests.get(fetchedSuite['url'])
+#     data = r.text
+#     dataInJson = xmltodict.parse(data)
+#     print(dataInJson)
+#     # post logs to mongo
+#     pymongoTest.postTestLogsToMongo('172.17.0.2', 'logs', 'TestLogs', dataInJson) 
+#     ##
 
-    ###
-
-
-    ## logic for parsing logs
-    # totalResult_right = logData['testResults']['finalCounts']['right']
-    # totalResult_wrong = logData['testResults']['finalCounts']['wrong']
-
-    # if (totalResult_wrong == '0') and (totalResult_right >= 0):
-    #     totalResult = 'Success'
-    # else:
-    #     totalResult = 'Failure'
+#     ###
 
 
-    # for x in logData['testResults']['result']:
-    #     #Test_case
-    #     Test_Case = (x['relativePageName'])
-    #     #Test_result
-    #     result_right = (x['counts']['right'])
-    #     result_wrong = (x['counts']['wrong'])
+#     ## logic for parsing logs
+#     # totalResult_right = logData['testResults']['finalCounts']['right']
+#     # totalResult_wrong = logData['testResults']['finalCounts']['wrong']
 
-    #     if (result_wrong == '0') and (result_right >= 0):
-    #         result = 'Success'
-    #     else:
-    #         result = 'Failure'
-    #     print(result)
-    #     #Time Evaluation
-    #     duration = (x['runTimeInMillis'])
-    #     print(duration)
-    ##
+#     # if (totalResult_wrong == '0') and (totalResult_right >= 0):
+#     #     totalResult = 'Success'
+#     # else:
+#     #     totalResult = 'Failure'
 
-    ## updating mongo document for logResults
-    data_result = {
-        "Test_Case": str(Test_Case),
-        "Test_Result": str(result),
-        "Time Evaluation": str(duration)
-    }
+
+#     # for x in logData['testResults']['result']:
+#     #     #Test_case
+#     #     Test_Case = (x['relativePageName'])
+#     #     #Test_result
+#     #     result_right = (x['counts']['right'])
+#     #     result_wrong = (x['counts']['wrong'])
+
+#     #     if (result_wrong == '0') and (result_right >= 0):
+#     #         result = 'Success'
+#     #     else:
+#     #         result = 'Failure'
+#     #     print(result)
+#     #     #Time Evaluation
+#     #     duration = (x['runTimeInMillis'])
+#     #     print(duration)
+#     ##
+
+#     ## updating mongo document for logResults
+#     data_result = {
+#         "Test_Case": str(Test_Case),
+#         "Test_Result": str(result),
+#         "Time Evaluation": str(duration)
+#     }
     
 
-    res2 = tcm_template['testcatalogmanager']['ut']['tests']
-    for res3 in res2:
-        res4 = res3['data']
-        for res5 in res4: # # res4 in data list     
-            final_result = res5['results']
-            final_result.append(data_result)
+#     res2 = tcm_template['testcatalogmanager']['ut']['tests']
+#     for res3 in res2:
+#         res4 = res3['data']
+#         for res5 in res4: # # res4 in data list     
+#             final_result = res5['results']
+#             final_result.append(data_result)
 
 
-    for tcm2 in tcm_template['testcatalogmanager']['ut']['tests']:
-        for tcm3 in tcm2:
-            tcm3 = final_result
+#     for tcm2 in tcm_template['testcatalogmanager']['ut']['tests']:
+#         for tcm3 in tcm2:
+#             tcm3 = final_result
 
 
-    data = [{
-        "uuid": str(uuid),
-        "name": str(tag + "_" + testName + "_" + str(datetime.datetime.utcnow())),
-        "verdict": str(totalResult),
-        "result": tcm3
-    }]
+#     data = [{
+#         "uuid": str(uuid),
+#         "name": str(tag + "_" + testName + "_" + str(datetime.datetime.utcnow())),
+#         "verdict": str(totalResult),
+#         "result": tcm3
+#     }]
 
-    for tcm2b in tcm_template['testcatalogmanager']['ut']['tests']:
-        tcm2b['data'] = data
+#     for tcm2b in tcm_template['testcatalogmanager']['ut']['tests']:
+#         tcm2b['data'] = data
 
-    pymongoTest.updateTCMTemplate('172.17.0.2', 'logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
-    ##
+#     pymongoTest.updateTCMTemplate('172.17.0.2', 'logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
+#     ##
 
-    #return results to swagger
-    swagger_results = pymongoTest.fetchDocWithUUID('172.17.0.2', 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
-    return swagger_results
-    ###
+#     #return results to swagger
+#     swagger_results = pymongoTest.fetchDocWithUUID('172.17.0.2', 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
+#     return swagger_results
+#     ###
 
-def get_validation(body):
-    log.debug('post it')
-    # return ("Valid Input")
-    # hgi = "2000"
-    # return hgi
-    # return {
-    #     'post': name
-    # }
+# def get_validation(body):
+#     log.debug('post it')
+#     # return ("Valid Input")
+#     # hgi = "2000"
+#     # return hgi
+#     # return {
+#     #     'post': name
+#     # }
 
 
-def get_execution(body):
-    log.debug('post it')
-    # return json.dumps(r, indent=2)
-    # return {
-    #     'delete': name
-    # }
+# def get_execution(body):
+#     log.debug('post it')
+#     # return json.dumps(r, indent=2)
+#     # return {
+#     #     'delete': name
+#     # }
