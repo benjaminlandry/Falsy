@@ -147,8 +147,7 @@ def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     return logData
 
 
-def get_it_TS(TestSuiteName, Tag):
-
+def get_it_TS(TestSuiteName, Tag, uuid):
     
     ## fetch test_url from TMS_template, in mongo
     fetchedSuite = pymongoTest.fetchUrlFromMongo_Suite('FT', 'RBT', 'AFG', 'AfgOfflineLicenseTestSuites', 'TestSuiteAfgOpenIdOfflineLicense')
