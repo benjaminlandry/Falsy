@@ -60,8 +60,8 @@ testCases2 = {
 
 
 
-def postTestsToMongo():
-    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+def postTestsToMongo(mongoIP):
+    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
     # FT = client['FT'] # create a database
     # RBT1 = FT['RBT'] # create a collection
     # UT = client['UT']
@@ -78,50 +78,52 @@ def postTestsToMongo():
     # RBT2.insert_one(testCases2)
 
 
-def fetchUrlFromMongo_Suite(database, collection, Tag, ClassDefinition, TestName):
-    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+def fetchUrlFromMongo_Suite(mongoIP, database, collection, Tag, ClassDefinition, TestName):
+    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
 
     fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestSuiteName": TestName})
     return fetchedResults
 
-def fetchUrlFromMongo_Case(database, collection, Tag, ClassDefinition, TestName, TestCaseNumber):
-    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+def fetchUrlFromMongo_Case(mongoIP, database, collection, Tag, ClassDefinition, TestName, TestCaseNumber):
+    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
 
     fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestCaseName": TestName, "TestCaseNumber": TestCaseNumber})
     return fetchedResults    
 
-def postTestLogsToMongo(database, collection, log):
-    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+def postTestLogsToMongo(mongoIP, database, collection, log):
+    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
     
     col.insert_one(log)  # insert log document in a collection
 
-def fetchResultsFromOneLog(database, collection, uuid):
-    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+
+def fetchResultsFromOneLog(mongoIP, database, collection, uuid):
+    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
 
     fetchedResults = col.find_one({"_id": uuid}, {"testResults.result.tables" : 0, "testResults.result.instructions": 0, "testResults.result.content": 0})
     return fetchedResults 
 
-def updateTCMTemplate(database, collection, uuid, log):
-    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+
+def updateTCMTemplate(mongoIP, database, collection, uuid, log):
+    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
 
     col.find_one_and_replace({'testcatalogmanager.ut.tests.uuid': uuid}, {'testcatalogmanager': log}) #TODO: fix later, duplicate 'testcatalogmanager' name in JSON
 
-def fetchDocWithUUID(database, collection, target_tool, uuid):
-    client = MongoClient('172.17.0.2', 27017) # connects client with the mongoserver
+def fetchDocWithUUID(mongoIP, database, collection, uuid):
+    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
     db = client[database] # create/connect to a database
     col = db[collection]  # create/connect to a collection
     
-    logDirectory = col.find_one({"testcatalogmanager.ut.tests.target_tool.type": target_tool, 'testcatalogmanager.ut.tests.uuid': uuid})
+    logDirectory = col.find_one({'testcatalogmanager.ut.tests.uuid': uuid})
     return logDirectory
 
 
