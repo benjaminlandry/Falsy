@@ -12,8 +12,6 @@ COPY . /usr/src/api_swagger
 # Install any needed packages specified in requirements.txt
 RUN pip3 install  -r requirements.txt
 
-#ENV TCM_API_host = 0.0.0.0
-
 EXPOSE 8090
 
-CMD ["./script.sh"]
+#CMD ["./script.sh"]

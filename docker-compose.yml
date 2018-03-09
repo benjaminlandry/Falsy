@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+  api:
+    build: ./api
+    ports:
+      - "8090:8090"
+    container_name: api
+  mongodb:
+    build: ./mongodb
+    ports:
+      - "27017:27017"
+    container_name: mongodb
