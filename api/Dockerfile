@@ -1,6 +1,7 @@
 # FROM ubuntu:16.04
 FROM python:2.7-wheezy
 FROM python:3
+FROM benjaminlandry/swagger_falsy_libs:falsy_libs
 RUN apt-get update && apt-get install -y
 
 # Set the working directory to /app
@@ -10,7 +11,7 @@ WORKDIR /usr/src/api_swagger
 COPY . /usr/src/api_swagger
 
 # Install any needed packages specified in requirements.txt
-RUN pip3 install  -r requirements.txt
+#RUN pip3 install  -r requirements.txt
 
 EXPOSE 8090
 

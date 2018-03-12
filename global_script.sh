@@ -21,7 +21,7 @@ container_api=`docker ps | awk '{i++}i==3{print $1; exit}'`
 
 apt install jq #TODO: add the requirements.txt
 
-# How to pass newMongoIP variable inside container and for sed to access it?
+### How to pass newMongoIP variable inside container and for sed to access it?
 newMongoIP=`docker inspect $container_mongo | jq '.[].NetworkSettings.Networks.bridge.IPAddress'`
 
 docker exec -it $container_api bash

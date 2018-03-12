@@ -20,11 +20,9 @@ from bson import ObjectId
 import os
 
 # ## to set mongoIP
-# mongoIP = os.environ.get('MONGOIP')
-# print(mongoIP)
-# ##
-
+mongoIP = os.environ.get('MONGOIP')
 print(mongoIP)
+# ## 
 
 def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     pass
