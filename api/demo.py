@@ -19,16 +19,15 @@ from uuid import UUID
 from bson import ObjectId
 import os
 
-#abc=api3
 #print(api3)
-
-# ## to set mongoIP
-# addr1 = socket.gethostbyname('$mongoIP')
+# abc=os.environ.get('mongodb6')
+# print(abc)
 
 # mongoIP = os.environ.get('MONGOIP')
 # print(mongoIP)
-# ## 
+# # ## 
 
+mongoIP="172.17.0.2"
 
 def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     pass
@@ -38,14 +37,14 @@ def get_it_TS(TestSuiteName, Tag):
 # ^^ new ^^ #
 
 
-# pymongoTest.postTestsToMongo('172.17.0.2')
+pymongoTest.postTestsToMongo(mongoIP)
 
 # #TS
 
 # #uuid = ObjectId("5a908064d5b67f3dd2e630ae")
 
 # template_uuid = 'ebbad7ce-17ed-11e8-accf-0ed5f89f718bbb' #variable given in swagger-user-body
-# tcm_template = pymongoTest.fetchDocWithUUID('172.17.0.2', 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
+# tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
 # #print(tcm_template)
 
 # tag = 'AFG'
@@ -118,7 +117,7 @@ def get_it_TS(TestSuiteName, Tag):
 
 # print(tcm_template['testcatalogmanager'])
 
-# pymongoTest.updateTCMTemplate('172.17.0.2', 'logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
+# pymongoTest.updateTCMTemplate(mongoIP, 'logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
 
 
 
@@ -128,7 +127,7 @@ def get_it_TS(TestSuiteName, Tag):
 
 #     ## mongo ##
     
-#     fetchedCase = pymongoTest.fetchUrlFromMongo_Case('172.17.0.2', 'FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable', '0700')
+#     fetchedCase = pymongoTest.fetchUrlFromMongo_Case(mongoIP, 'FT', 'RBT', 'AFG', 'AfgOpenIdConnectTestCases', 'TestCase0700SuccessAfgOpenIdConnectFeatureDisable', '0700')
 
 #     # database = 'FT'
 #     # collection = 'RBT'
@@ -148,10 +147,10 @@ def get_it_TS(TestSuiteName, Tag):
 
 #     ## logs
     
-#     #pymongoTest.postTestLogsToMongo('172.17.0.2', 'logs', 'TestLogs', dataInJson)
+#     #pymongoTest.postTestLogsToMongo(mongoIP, 'logs', 'TestLogs', dataInJson)
 #     #print(str(uuid.uuid4()))
 #     uuid = ObjectId("5a8ee5fdd5b67f1d6831c50a")
-#     logData = pymongoTest.fetchResultsFromOneLog('172.17.0.2', 'logs', 'TestLogs', uuid)
+#     logData = pymongoTest.fetchResultsFromOneLog(mongoIP, 'logs', 'TestLogs', uuid)
 #     print(logData)
 #     ###
    
@@ -169,10 +168,10 @@ def get_it_TS(TestSuiteName, Tag):
 # def get_it_TS(TestSuiteName, Tag, uuid):
     
 #     ## fetch test_url from TMS_template, in mongo
-#     tcm_template = pymongoTest.fetchDocWithUUID('172.17.0.2', 'logs', 'TestLogs', "ebbad7ce-17ed-11e8-accf-0ed5f89f718b") 
+#     tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestLogs', "ebbad7ce-17ed-11e8-accf-0ed5f89f718b") 
 #     # database = 'logs'
 #     # collection = 'TestLogs'
-#     #fetchedSuite = pymongoTest.fetchUrlFromMongo_Suite('172.17.0.2', database, collection, Tag, ClassDefinitionTestSuiteName)
+#     #fetchedSuite = pymongoTest.fetchUrlFromMongo_Suite(mongoIP, database, collection, Tag, ClassDefinitionTestSuiteName)
 #     res2 = (tcm_template['testcatalogmanager']['ut']['tests'])
 #     for res3 in res2:
 #         test_url = res3['url'] # check syntax
@@ -184,7 +183,7 @@ def get_it_TS(TestSuiteName, Tag):
 #     dataInJson = xmltodict.parse(data)
 #     print(dataInJson)
 #     # post logs to mongo
-#     pymongoTest.postTestLogsToMongo('172.17.0.2', 'logs', 'TestLogs', dataInJson) 
+#     pymongoTest.postTestLogsToMongo(mongoIP, 'logs', 'TestLogs', dataInJson) 
 #     ##
 
 #     ###
@@ -248,11 +247,11 @@ def get_it_TS(TestSuiteName, Tag):
 #     for tcm2b in tcm_template['testcatalogmanager']['ut']['tests']:
 #         tcm2b['data'] = data
 
-#     pymongoTest.updateTCMTemplate('172.17.0.2', 'logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
+#     pymongoTest.updateTCMTemplate(mongoIP, 'logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
 #     ##
 
 #     #return results to swagger
-#     swagger_results = pymongoTest.fetchDocWithUUID('172.17.0.2', 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
+#     swagger_results = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
 #     return swagger_results
 #     ###
 

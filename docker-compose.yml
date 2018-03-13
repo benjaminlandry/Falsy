@@ -4,8 +4,6 @@ services:
   api:
     image: benjaminlandry/swagger_falsy_libs:falsy_libs
     build: ./api
-    environment:
-      - MONGOIP=$MONGOIP
     ports:
       - "8090:8090"
     container_name: api
