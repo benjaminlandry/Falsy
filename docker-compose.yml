@@ -1,18 +1,22 @@
-mongodb:
-  image: mongo:latest
-  container_name: mongodb
-  ports:
-    - "27017:27017"
+version: '2'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
 
-api:
-  build: ./api
-  container_name: api
-  volumes:
-    - .:/usr/src/api_swagger
-  environment:
-    - MONGODB_HOST=172.17.0.4
-    - MONGODB_PORT=27017
-  #links:
-  #- mongodb
-  ports:
-    - "8090:8090"
+  api:
+    image: api:latest
+    container_name: api
+    volumes:
+      - .:/usr/src/api_swagger
+    environment:
+      - MONGODB_HOST=1.2.3.4
+      - MONGODB_PORT=27017
+    #links:
+    #- mongodb
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mongodb

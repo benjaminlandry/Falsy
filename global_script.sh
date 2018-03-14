@@ -45,6 +45,6 @@ docker run -t -d --net=my-network --name $mongoid $mongoid
 
 
 sh test_script.sh
-#python test_python.py
+python test_python.py
 
 #gunicorn -b $api5:8090 main:api --reload -w 1 --threads 1

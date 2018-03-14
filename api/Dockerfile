@@ -7,9 +7,9 @@ RUN apt-get update && apt-get install -y
 # Set the working directory to /app
 
 # Copy the current directory contents into the container at /app
-WORKDIR /usr/src/api_swagger
-COPY . /usr/src/api_swagger
+#WORKDIR /usr/src/api_swagger
+COPY ./ /usr/src/api_swagger/
 
 EXPOSE 8090
-
-CMD ['./usr/src/api_swagger/script.sh']
+WORKDIR /
+CMD ['/bin/bash','/usr/src/api_swagger/script.sh']

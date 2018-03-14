@@ -20,14 +20,15 @@ from bson import ObjectId
 import os
 
 #print(api3)
-# abc=os.environ.get('mongodb6')
-# print(abc)
+mongoIP=os.environ.get('MONGODB_HOST')
+print(mongoIP)
 
 # mongoIP = os.environ.get('MONGOIP')
 # print(mongoIP)
 # # ## 
 
-mongoIP="172.17.0.2"
+# os.envi
+# mongoIP=MONGODB_HOST
 
 def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     pass
