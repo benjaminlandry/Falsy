@@ -1,0 +1,30 @@
+api:
+  build: ./
+  container_name: api
+  #volumes:
+  #- ./logs:/hygieia/logs
+  volumes:
+    - .:/usr/src/api_swagger
+  environment:
+    - MONGODB_HOST=172.17.0.2
+    - MONGODB_PORT=27017
+  #links:
+  #- mongodb
+  ports:
+    - "8090:8090"
+  command: sh /usr/src/api_swagger/script.sh
+
+# version: "3"
+
+# services:
+#   api:
+#     image: benjaminlandry/swagger_falsy_libs:falsy_libs
+#     build: ./
+#     environment:
+#     - MONGODB_HOST=mongodb
+#     - MONGODB_PORT=27017
+#     ports:
+#       - "8090:8090"
+#     container_name: api
+#     links:
+#       - mongodb

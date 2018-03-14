@@ -5,7 +5,7 @@
 # User Must Start In ./Falsy container
 
 #docker rmi -f $(docker images)
-docker rm -f $(docker ps -a )
+docker rm -f $(docker ps -a -q)
 echo y | docker network rm my-network
 echo y | docker network prune
 
@@ -44,7 +44,7 @@ docker run -t -d --net=my-network --name $mongoid $mongoid
 #cd api
 
 
-#sh test_script.sh
+sh test_script.sh
 #python test_python.py
 
 #gunicorn -b $api5:8090 main:api --reload -w 1 --threads 1

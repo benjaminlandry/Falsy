@@ -1,14 +1,18 @@
-version: "3"
+mongodb:
+  image: mongo:latest
+  container_name: mongodb
+  ports:
+    - "27017:27017"
 
-services:
-  api:
-    image: benjaminlandry/swagger_falsy_libs:falsy_libs
-    build: ./api
-    ports:
-      - "8090:8090"
-    container_name: api
-  mongodb:
-    build: ./mongodb
-    ports:
-      - "27017:27017"
-    container_name: mongodb3
+api:
+  build: ./api
+  container_name: api
+  volumes:
+    - .:/usr/src/api_swagger
+  environment:
+    - MONGODB_HOST=172.17.0.4
+    - MONGODB_PORT=27017
+  #links:
+  #- mongodb
+  ports:
+    - "8090:8090"

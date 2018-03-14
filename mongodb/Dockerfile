@@ -1,5 +1,5 @@
 FROM mongo:3.0-wheezy
-RUN apt-get update && apt-get install -y iputils-ping
+RUN apt-get update && apt-get install -y
 
 WORKDIR /usr/src/mongodb
 
