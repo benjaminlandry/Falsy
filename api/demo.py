@@ -21,6 +21,7 @@ import os
 
 #print(api3)
 mongoIP=os.environ.get('MONGODB_HOST')
+print('demo.py file')
 print(mongoIP)
 
 # mongoIP = os.environ.get('MONGOIP')
