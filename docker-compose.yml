@@ -9,8 +9,8 @@ services:
   api:
     image: api:latest
     container_name: api
-    volumes:
-      - .:/usr/src/api_swagger
+    # volumes:
+    #   - .:/usr/src/api_swagger
     environment:
       - MONGODB_HOST=mongodb
       - MONGODB_PORT=27017

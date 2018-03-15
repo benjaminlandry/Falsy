@@ -13,4 +13,8 @@ EXPOSE 8090
 CMD echo $MONGODB_HOST && \
 exec ./script.sh
 
-#ENV MONGODB_HOST=10.0.1.1
+#---
+# COPY . /usr/src/api_swagger
+# WORKDIR /usr/src/api_swagger
+
+# EXPOSE 8090

@@ -19,17 +19,12 @@ from uuid import UUID
 from bson import ObjectId
 import os
 
-#print(api3)
+##
 mongoIP=os.environ.get('MONGODB_HOST')
 print('demo.py file')
 print(mongoIP)
+## 
 
-# mongoIP = os.environ.get('MONGOIP')
-# print(mongoIP)
-# # ## 
-
-# os.envi
-# mongoIP=MONGODB_HOST
 
 def get_it_TC(TestCaseName, TestCaseNumber, Tag):
     pass
@@ -40,6 +35,9 @@ def get_it_TS(TestSuiteName, Tag):
 
 
 pymongoTest.postTestsToMongo(mongoIP)
+tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager', "ebbad7ce-17ed-11e8-accf-0ed5f89f718b") 
+print(tcm_template)
+
 
 # #TS
 
