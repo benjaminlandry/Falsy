@@ -1,18 +1,19 @@
 api:
-  build: ./
+  image: api:latest
   container_name: api
   #volumes:
   #- ./logs:/hygieia/logs
-  volumes:
-    - .:/usr/src/api_swagger
+  # volumes:
+  #  - .:/usr/src/api_swagger
   environment:
     #- MONGODB_HOST=mongodb
-    - MONGODB_HOST=1.2.3.4
+    - MONGODB_HOST=172.0.0.2
     - MONGODB_PORT=27017
   #links:
   #- mongodb
   ports:
     - "8090:8090"
+  tty: true
   command: sh /usr/src/api_swagger/script.sh
 
 # version: "3"
