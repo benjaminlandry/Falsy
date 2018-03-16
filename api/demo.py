@@ -39,9 +39,9 @@ tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager
 print(tcm_template)
 
 
-# #TS
+#TS
 
-# #uuid = ObjectId("5a908064d5b67f3dd2e630ae")
+#uuid = ObjectId("5a908064d5b67f3dd2e630ae")
 
 # template_uuid = 'ebbad7ce-17ed-11e8-accf-0ed5f89f718bbb' #variable given in swagger-user-body
 # tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
@@ -51,30 +51,30 @@ print(tcm_template)
 # testName = 'R1A15'
 
 # ## logic for parsing logs
-# # totalResult_right = logData['testResults']['finalCounts']['right']
-# # totalResult_wrong = logData['testResults']['finalCounts']['wrong']
+# totalResult_right = logData['testResults']['finalCounts']['right']
+# totalResult_wrong = logData['testResults']['finalCounts']['wrong']
 
-# # if (totalResult_wrong == '0') and (totalResult_right >= 0):
-# #     totalResult = 'Success'
-# # else:
-# #     totalResult = 'Failure'
+# if (totalResult_wrong == '0') and (totalResult_right != '0'):
+#     totalResult = 'Success'
+# else:
+#     totalResult = 'Failure'
 
 
-# # for x in logData['testResults']['result']:
-# #     #Test_case
-# #     Test_Case = (x['relativePageName'])
-# #     #Test_result
-# #     result_right = (x['counts']['right'])
-# #     result_wrong = (x['counts']['wrong'])
+# for x in logData['testResults']['result']:
+#     #Test_case
+#     Test_Case = (x['relativePageName'])
+#     #Test_result
+#     result_right = (x['counts']['right'])
+#     result_wrong = (x['counts']['wrong'])
 
-# #     if (result_wrong == '0') and (result_right >= 0):
-# #         result =def get_it_TS: 'Success'
-# #     else:
-# #         result = 'Failure'
-# #     print(result)
-# #     #Time Evaluation
-# #     duration = (x['runTimeInMillis'])
-# #     print(duration)
+#     if (result_wrong == '0') and (result_right != '0'):
+#         result = 'Success'
+#     else:
+#         result = 'Failure'
+#     print(result)
+#     #Time Evaluation
+#     duration = (x['runTimeInMillis'])
+#     print(duration)
 
 # #TODO: TODELETE - testParameters
 # duration = 123

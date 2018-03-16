@@ -14,9 +14,11 @@ services:
     environment:
       - MONGODB_HOST=mongodb
       - MONGODB_PORT=27017
+    tty: true
     #links:
     #- mongodb
     ports:
       - "8090:8090"
     depends_on:
       - mongodb
+    
