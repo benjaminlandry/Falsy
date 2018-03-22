@@ -78,21 +78,7 @@ def postTestsToMongo(mongoIP):
     # RBT2.insert_one(testCases2)
 
 
-def fetchUrlFromMongo_Suite(mongoIP, database, collection, Tag, ClassDefinition, TestName):
-    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
-    db = client[database] # create/connect to a database
-    col = db[collection]  # create/connect to a collection
 
-    fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestSuiteName": TestName})
-    return fetchedResults
-
-def fetchUrlFromMongo_Case(mongoIP, database, collection, Tag, ClassDefinition, TestName, TestCaseNumber):
-    client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
-    db = client[database] # create/connect to a database
-    col = db[collection]  # create/connect to a collection
-
-    fetchedResults = col.find_one({"Tag": Tag, "ClassDefinition": ClassDefinition, "TestCaseName": TestName, "TestCaseNumber": TestCaseNumber})
-    return fetchedResults    
 
 def postTestLogsToMongo(mongoIP, database, collection, log):
     client = MongoClient(mongoIP, 27017) # connects client with the mongoserver
@@ -125,6 +111,8 @@ def fetchDocWithUUID(mongoIP, database, collection, uuid):
     
     logDirectory = col.find_one({'testcatalogmanager.ut.tests.uuid': uuid})
     return logDirectory
+
+
 
 
 ### main ###

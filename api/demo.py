@@ -18,6 +18,7 @@ import uuid
 from uuid import UUID
 from bson import ObjectId
 import os
+from collections import OrderedDict
 
 ##
 mongoIP=os.environ.get('MONGODB_HOST')
@@ -33,24 +34,42 @@ def get_it_TS(TestSuiteName, Tag):
 
 # ^^ new ^^ #
 
-
 pymongoTest.postTestsToMongo(mongoIP)
-tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager', "ebbad7ce-17ed-11e8-accf-0ed5f89f718b") 
-print(tcm_template)
 
+tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager', "ebbad7ce-17ed-11e8-accf-0ed5f89f718b") 
+tcm_tmp = []
+tcm_tmp.insert(0, tcm_template)
+
+#print(my_dict)
+print(tcm_template)
+print(tcm_tmp)
+
+
+
+
+# f = open('TCM_Results.txt', 'w')
+# f.write(str(tcm_template))
+# f.close()
+# with open('result1.json', 'w') as fp1:
+#     json.dumps(tcm_template, fp1)
 
 #TS
 
-#uuid = ObjectId("5a908064d5b67f3dd2e630ae")
+uuid = ObjectId("5a908064d5b67f3dd2e630ae")
+template_uuid = 'ebbad7ce-17ed-11e8-accf-0ed5f89f718b' #variable given in swagger-user-body
+#tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
+#print(tcm_template)
 
-# template_uuid = 'ebbad7ce-17ed-11e8-accf-0ed5f89f718bbb' #variable given in swagger-user-body
-# tcm_template = pymongoTest.fetchDocWithUUID(mongoIP, 'logs', 'TestCatalogManager', 'Rocket', template_uuid)
-# #print(tcm_template)
+tag = 'AFG'
+testName = 'R1A15'
+#tcm_template['testcatalogmanager']
+pymongoTest.updateTCMTemplate(mongoIP, 'logs', 'TestCatalogManager', template_uuid, tcm_tmp)
 
-# tag = 'AFG'
-# testName = 'R1A15'
+## ^^ test section ^^ ##
 
-# ## logic for parsing logs
+
+
+## logic for parsing logs
 # totalResult_right = logData['testResults']['finalCounts']['right']
 # totalResult_wrong = logData['testResults']['finalCounts']['wrong']
 
@@ -76,28 +95,34 @@ print(tcm_template)
 #     duration = (x['runTimeInMillis'])
 #     print(duration)
 
-# #TODO: TODELETE - testParameters
-# duration = 123
-# Test_Case = "abc"
-# result = "Success"
-# totalResult = "success"
-# ##
+#TODO: TODELETE - testParameters
+duration = 123
+Test_Case = "abc"
+result = "Success"
+totalResult = "success"
+##
 
-# #JSON-body
+#JSON-body
 
-# data_result = {
-#     "Test_Case": str(Test_Case),
-#     "Test_Result": str(result),
-#     "Time Evaluation": str(duration)
-# }
+data_result = {
+    "Test_Case": str(Test_Case),
+    "Test_Result": str(result),
+    "Time Evaluation": str(duration)
+}
    
 
 # res2 = tcm_template['testcatalogmanager']['ut']['tests']
 # for res3 in res2:
 #     res4 = res3['data']
-#     for res5 in res4: # # res4 in data list     
-#         final_result = res5['results']
-#         final_result.append(data_result)
+#     for res5 in res4: # # res4 in data list 
+#         # print(type(res5['results']))
+#         # if(type(res5['results'] == 'list')   
+#         #     final_result = res5['results']
+#         #     final_result.append(data_result)
+#         # else:
+#         #     for res6 in res5['results']:
+#         #         final_result = res6
+#         #         final_result.append(data_result)
 
 
 # for tcm2 in tcm_template['testcatalogmanager']['ut']['tests']:
@@ -115,11 +140,11 @@ print(tcm_template)
 # for tcm2b in tcm_template['testcatalogmanager']['ut']['tests']:
 #     tcm2b['data'] = data
 
-# print(tcm_template['testcatalogmanager'])
+#print(tcm_template)
 
-# pymongoTest.updateTCMTemplate(mongoIP, 'logs', 'TestCatalogManager', template_uuid, tcm_template['testcatalogmanager'])
+#pymongoTest.updateTCMTemplate(mongoIP, 'logs', 'TestCatalogManager', template_uuid, tcm_template)
 
-
+#json.dumps(list(self.get_queryset().values_list('code', flat=True))),mimetype="application/json")
 
 
 
